@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import Search from '../components/Search.astro';
+import { t } from '../i18n';
+import { score, num, count, fill, type Lang } from '../lib/format';
+import { href, asset } from '../lib/paths';
+import { facts, general } from '../lib/data';
+import { rankings, profileSlug } from '../lib/profiles';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const Y = facts.last.year;
+const prev = general[general.length - 2].year;
+const R = rankings(Y, prev);
+const lists = [
+  [fill(d.muni.rank_left, { year: Y }), R.left, (x: number) => score(lang, x)],
+  [fill(d.muni.rank_right, { year: Y }), R.right, (x: number) => score(lang, x)],
+  [fill(d.muni.rank_change, { from: prev, to: Y }), R.change, (x: number) => score(lang, x)],
+  [fill(d.muni.rank_polar, { year: Y }), R.polar, (x: number) => num(lang, x, 1)],
+] as const;
+const labels = { general: d.common.general, municipal: d.common.municipal, mis: d.common.mis, remove: d.muni.compare_remove, provisional: d.common.provisional };
+---
+<Base lang={lang} title={d.muni.title} section="municipalities">
+  <div class="stack" style="--stack-space: var(--space-m)">
+    <h1 class="titulo-pagina">{d.muni.title}</h1>
+    <p class="lede">{fill(d.muni.lede, { n: count(lang, facts.municipalities) })}</p>
+    <Search lang={lang} id="buscar-indice" />
+  </div>
+  <div class="grid seccion" style="--grid-min: 17rem; margin-block-start: var(--space-xl)">
+    {lists.map(([title, rows, f]) => (
+      <section class="recibo" aria-label={title}>
+        <h2 class="recibo__seccion" style="margin: 0">{title}</h2>
+        <ol class="ranking recibo__filas">
+          {rows.map((r) => (
+            <li>
+              <a href={href(lang, `/municipalities/${profileSlug(r.c, r.n)}/`)}>{r.n} ({r.uf})</a>
+              <span>{f(r.x)}</span>
+            </li>
+          ))}
+        </ol>
+        {Y === facts.last.year && <p class="recibo__leyenda">* {d.common.provisional}</p>}
+      </section>
+    ))}
+  </div>
+  <section class="figura seccion stack" data-comparador data-base={asset('').replace(/\/$/, '')} data-labels={JSON.stringify(labels)} data-lang={lang}
+    aria-labelledby="comparar-t" style="margin-block-start: var(--space-2xl)">
+    <h2 id="comparar-t" class="figura__titulo">{d.muni.compare}</h2>
+    <p class="figura__subtitulo">{d.muni.compare_hint}</p>
+    <form class="busqueda" data-comparar-form>
+      <label for="comparar-q">{d.muni.compare_add}</label>
+      <input id="comparar-q" type="search" autocomplete="off" placeholder={d.common.search_placeholder} list="comparar-opciones" />
+      <datalist id="comparar-opciones"></datalist>
+    </form>
+    <ul class="cluster" role="list" data-comparar-lista></ul>
+    <div class="figura__marcas" data-leyenda></div>
+    <div data-navegable data-grafico></div>
+    <noscript><p>{d.map.noscript}</p></noscript>
+  </section>
+</Base>
+<script>
+  import '../scripts/comparador';
+</script>

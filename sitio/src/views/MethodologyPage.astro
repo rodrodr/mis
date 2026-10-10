@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from '../components/Figure.astro';
+import { t } from '../i18n';
+import { score, num, pct, count, fill, type Lang } from '../lib/format';
+import { facts, parties, counterfactual, moran, verification, general, municipal } from '../lib/data';
+import { moranFig } from '../lib/figs2';
+import { placements } from '../scripts/mini';
+import { GRUPOS, grupo, grupoColor, limites } from '../lib/grupos';
+import { asset } from '../lib/paths';
+import { loadProfile } from '../lib/profiles';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const Y = facts.last.year;
+const fm = moranFig(lang);
+const fpRows = parties.filter((p) => p.year === Y).sort((a, b) => a.theta - b.theta);
+const fpSvg = placements(fpRows.map((p) => ({ sigla: p.sigla, num: p.num, theta: p.theta, se: p.se, imputed: !!p.imputed, fill: grupoColor(grupo(p.theta)),
+  label: `${p.sigla} (${p.num}): ${score(lang, p.theta)} ± ${num(lang, p.se, 3)}${p.imputed ? ` · ${d.common.stamp_imputed}` : ''}` })),
+  { label: d.method.s2_fig_sub.replace('{year}', String(Y)), xfmt: (v) => (v === -1 ? `−1 ${d.common.left}` : v === 1 ? `${d.common.right} +1` : score(lang, v, 1)), bands: limites.slice(1) });
+// worked example: São Paulo, last election
+const SP = loadProfile(3550308);
+const theta = new Map(parties.filter((p) => p.year === Y).map((p) => [p.num, p]));
+const ex = SP.p.filter((r) => r[0] === Y).map((r) => ({ sig: theta.get(r[1])?.sigla ?? String(r[1]), s: r[2], th: theta.get(r[1])?.theta ?? 0 }))
+  .sort((a, b) => b.s - a.s);
+const top = ex.slice(0, 8);
+const rest = ex.slice(8);
+const restC = rest.reduce((a, r) => a + r.s * r.th, 0);
+const exMis = SP.s.ideo[SP.y.indexOf(Y)] as number;
+// imputation criteria counts (party table)
+const crit = new Map<string, number>();
+for (const p of parties) {
+  const k = p.criteria.startsWith('MP [') ? 'MP [later wave]' : p.criteria;
+  crit.set(k, (crit.get(k) ?? 0) + 1);
+}
+const lineageLinks = Object.values(counterfactual.lineage).reduce((a, v) => a + Object.keys(v).length, 0);
+const mMin = facts.moranMin, mMax = facts.moranMax;
+const toc = [['s1', d.method.s1], ['s2', d.method.s2], ['s3', d.method.s3], ['s4', d.method.s4], ['s5', d.method.s5], ['s6', d.method.s6], ['s7', d.method.s7], ['s8', d.method.s8], ['s9', d.method.s9], ['s10', d.method.s10], ['verif', d.method.verify_title]];
+---
+<Base lang={lang} title={d.method.title} section="methodology">
+  <div class="stack" style="--stack-space: var(--space-s)">
+    <h1 class="titulo-pagina">{d.method.title}</h1>
+    <p class="lede">{d.method.lede}</p>
+  </div>
+  <div class="portada" style="margin-block-start: var(--space-xl)">
+    <nav class="recibo" aria-labelledby="toc-t" style="position: sticky; inset-block-start: calc(var(--space-2xl) + var(--space-s))">
+      <h2 id="toc-t" class="recibo__seccion" style="margin: 0">{d.method.toc}</h2>
+      <ol class="recibo__filas">{toc.map(([id, h]) => <li><a href={`#${id}`}>{h}</a></li>)}</ol>
+    </nav>
+    <div class="prosa lectura" style="display: grid; gap: var(--space-xl)">
+      <section style="--stack-space: var(--space-s)" id="s1" class="stack">
+        <h2>{d.method.s1}</h2>
+        <p>{d.method.s1_text}</p>
+        <p class="numeral" style="font-size: var(--font-size-step-4)">MIS = Σ s·θ</p>
+        <div class="figura stack">
+          <h3 class="figura__titulo">{fill(d.method.s1_example, { name: `${SP.n} (${SP.uf})`, year: Y })}</h3>
+          <p class="figura__subtitulo">{fill(d.method.s1_example_text, { k: top.length })}</p>
+          <div class="tabla-larga" tabindex="0" role="region" aria-label={d.common.table}><table>
+            <thead><tr><th scope="col">{d.method.party}</th><th scope="col" data-cifra>{d.method.share}</th><th scope="col" data-cifra>θ</th><th scope="col" data-cifra>{d.method.contribution}</th></tr></thead>
+            <tbody>
+              {top.map((r) => <tr><th scope="row">{r.sig}</th><td data-cifra>{pct(lang, r.s)}</td><td data-cifra>{score(lang, r.th)}</td><td data-cifra>{score(lang, r.s * r.th)}</td></tr>)}
+              <tr><th scope="row">{d.muni.others} ({rest.length})</th><td data-cifra>{pct(lang, rest.reduce((a, r) => a + r.s, 0))}</td><td data-cifra>—</td><td data-cifra>{score(lang, restC)}</td></tr>
+              <tr><th scope="row"><strong>MIS</strong></th><td></td><td></td><td data-cifra><strong>{score(lang, exMis)}</strong></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </section>
+      <section style="--stack-space: var(--space-s)" id="s2" class="stack">
+        <h2>{d.method.s2}</h2>
+        <p>{d.method.s2_text}</p>
+        <Figure lang={lang} id="m2" title={d.method.s2_fig_title} subtitle={d.method.s2_fig_sub.replace('{year}', String(Y))} svg={fpSvg} rows={fpRows} rowKey="sigla"
+          columns={[{ key: 'sigla', label: d.method.party }, { key: 'num', label: 'TSE', num: true }, { key: 'theta', label: 'θ', num: true, fmt: (v) => score(lang, v as number) }, { key: 'se', label: 'SE', num: true, fmt: (v) => num(lang, v as number, 3) }, { key: 'criteria', label: d.method.criteria }, { key: 'wave', label: 'BLS', num: true }]}>
+          <div slot="legend" class="stack" style="--stack-space: var(--space-2xs)">
+            <div class="riel" role="group" aria-label={d.common.year} data-ubicaciones data-src={asset('data/parties_min.json')} data-lang={lang}
+              data-sub={d.method.s2_fig_sub} data-lab={JSON.stringify({ imputed: d.common.stamp_imputed, left: d.common.left, right: d.common.right, gabbr: d.grupos.abbr })}>
+              {[[d.common.general_code, d.common.general_long, general.map((y) => y.year)], [d.common.municipal_code, d.common.municipal_long, municipal.map((y) => y.year)]].map(([code, long, ys]) => (
+                <div class="riel__fila"><abbr title={long as string}>{code}</abbr>{(ys as number[]).map((y) => <button type="button" data-ano={y} aria-pressed={String(y === Y)}>{y}</button>)}</div>
+              ))}
+            </div>
+            <p class="figura__marcas"><span class="mono caps">{d.grupos.title.split('(')[0].trim()}:</span>{GRUPOS.map((g, k) => <span title={d.grupos.names[k]}><span class="leyenda__muestra" style={`background:${grupoColor(g)};outline:1px solid var(--color-fig-ink)`}></span>{d.grupos.abbr[k]}</span>)}<span>○ {d.common.stamp_imputed}</span><span>— ±1 SE</span></p>
+          </div>
+        </Figure>
+      </section>
+      <section style="--stack-space: var(--space-s)" id="s3" class="stack">
+        <h2>{d.method.s3}</h2>
+        <p>{d.method.s3_text}</p>
+        <div class="tabla-larga" tabindex="0" role="region" aria-label={d.common.table}><table>
+          <thead><tr><th scope="col">{d.method.criteria}</th><th scope="col">{d.method.criteria_rule}</th><th scope="col" data-cifra>{d.method.criteria_n}</th></tr></thead>
+          <tbody>{[...crit.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => <tr><th scope="row"><code>{k}</code></th><td>{(d.method.crit as Record<string, string>)[k] ?? k}</td><td data-cifra>{count(lang, n)}</td></tr>)}</tbody>
+        </table></div>
+      </section>
+      <section style="--stack-space: var(--space-s)" id="s4" class="stack"><h2>{d.method.s4}</h2><p>{fill(d.method.s4_text, { r: num(lang, verification.r_na_imp, 3) })}</p></section>
+      <section style="--stack-space: var(--space-s)" id="s5" class="stack"><h2>{d.method.s5}</h2><p>{d.method.s5_text}</p></section>
+      <section style="--stack-space: var(--space-s)" id="s6" class="stack"><h2>{d.method.s6}</h2><p>{d.method.s6_text}</p></section>
+      <section style="--stack-space: var(--space-s)" id="s7" class="stack"><h2>{d.method.s7}</h2><p>{fill(d.method.s7_text, { k: lineageLinks })}</p>
+        <p class="figura__aviso"><span class="sello">{d.common.stamp_experimental}</span><span>{d.figure.pending}</span></p></section>
+      <section style="--stack-space: var(--space-s)" id="s8" class="stack">
+        <h2>{d.method.s8}</h2>
+        <p>{fill(d.method.s8_text, { min: num(lang, mMin.I, 3), minYear: mMin.year, max: num(lang, mMax.I, 3), maxYear: mMax.year })}</p>
+        <Figure lang={lang} id="m8" title={d.map.moran} subtitle={d.map.lisa_note} svg={fm.svg} rows={fm.rows}
+          columns={[{ key: 'year', label: d.common.year }, { key: 'arena', label: d.common.arena }, { key: 'I', label: 'I', num: true, fmt: (v) => num(lang, v as number, 3) }, { key: 'HH', label: d.map.lisa_hh, num: true }, { key: 'LL', label: d.map.lisa_ll, num: true }]} />
+      </section>
+      <section style="--stack-space: var(--space-s)" id="s9" class="stack"><h2>{d.method.s9}</h2><ul>{d.method.s9_items.map((x) => <li>{x}</li>)}</ul></section>
+      <section style="--stack-space: var(--space-s)" id="s10" class="stack"><h2>{d.method.s10}</h2><p>{d.method.s10_text}</p></section>
+      <section style="--stack-space: var(--space-s)" id="verif" class="stack">
+        <h2>{d.method.verify_title}</h2>
+        <p>{fill(d.method.verify_text, { micro: count(lang, verification.micro_rows) })}</p>
+        <div class="tabla-larga" tabindex="0" role="region" aria-label={d.common.table}><table>
+          <thead><tr><th scope="col">Variable</th><th scope="col" data-cifra>n</th><th scope="col" data-cifra>r</th><th scope="col" data-cifra>p99.9 |Δ|</th></tr></thead>
+          <tbody>{verification.report.map((v) => <tr><th scope="row"><code>{v.var}</code></th><td data-cifra>{count(lang, v.n)}</td><td data-cifra>{num(lang, v.r, 5)}</td><td data-cifra>{num(lang, v.p999_abs_diff, 5)}</td></tr>)}</tbody>
+        </table></div>
+      </section>
+    </div>
+  </div>
+</Base>
+<script>
+  import '../scripts/figuras';
+  import '../scripts/ubicaciones';
+</script>

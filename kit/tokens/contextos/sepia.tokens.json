@@ -1,0 +1,47 @@
+{
+  "$description": "Tema sepia de lectura: papel cálido, tinta marrón. Se compone aparte (better-colors).",
+  "$extensions": {
+    "es.maestro": {
+      "colorScheme": "light"
+    }
+  },
+  "color": {
+    "bg": {
+      "base": {
+        "$value": "{color.sepia.paper}"
+      },
+      "surface": {
+        "$value": "{color.sepia.paper-2}"
+      },
+      "raised": {
+        "$value": "{color.sepia.paper}"
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.sepia.ink}"
+      },
+      "secondary": {
+        "$value": "{color.sepia.ink-2}"
+      }
+    },
+    "border": {
+      "subtle": {
+        "$value": "{color.sepia.line}"
+      },
+      "control": {
+        "$value": "{color.sepia.ink-2}"
+      }
+    },
+    "selection": {
+      "bg": {
+        "$value": "{color.amber.400}"
+      }
+    },
+    "status": {
+      "success-strong": {
+        "$value": "{color.sepia.success-strong}"
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+/* base.css · kit maestro-diseno-web
+   Orden de cascada único (contrato 2), reset moderno, tipografía fluida, superficies del navegador
+   tematizadas, capa española y primitivas de composición (Every Layout).
+   Requisitos: tokens.css generado por kits/tokens/build-tokens.mjs, junto a este fichero.
+   Reglas: cero !important; especificidad ≤ (0,1,0) con :where(); ningún literal de color, espacio,
+   radio o tamaño de componente fuera de tokens (size.*). Los temas los cambian los tokens, aquí no hay
+   ninguna rama por tema.
+   Para servirlo en línea (landing: CSS crítico ≤ 14 kB) sin la cadena @import → tokens.css, usa
+   css-en-linea.mjs, que junta capas, tokens y hojas en un solo <style>. */
+
+@layer reset, tokens, base, layouts, components, utilities;
+@import url("tokens/dist/tokens.css") layer(tokens);
+
+/* ------------------------------------------------------------------ reset */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; } /* evita el inflado en iOS sin bloquear el zoom */
+  body { min-block-size: 100svh; }
+  img, picture, video, canvas, svg { display: block; max-inline-size: 100%; }
+  img, video { block-size: auto; }
+  input, button, textarea, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :where(p, h1, h2, h3, h4, h5, h6, li, dd, figcaption) { overflow-wrap: break-word; }
+  :where(ul, ol)[role="list"] { list-style: none; padding: 0; }
+  :where(table) { border-collapse: collapse; }
+  :target { scroll-margin-block: var(--space-xl); }
+}
+
+/* ------------------------------------------------------------------ base */
+@layer base {
+  :where(html) {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-body);
+    font-size: 100%;                       /* nunca en px: respeta el tamaño del usuario */
+    line-height: var(--leading-body);
+    accent-color: var(--color-accent-solid);
+    caret-color: var(--color-accent-text);
+    scrollbar-color: var(--color-border-control) transparent;
+    -webkit-font-smoothing: antialiased;   /* una sola vez, en la raíz (better-typography) */
+    hanging-punctuation: first allow-end last;
+  }
+  :where(body) { font-size: var(--font-size-step-0); }
+
+  /* jerarquía: escala fluida desde tokens; display ≤ 6rem y tracking ≥ −0,04em (craft-floor) */
+  :where(h1, h2, h3, h4) {
+    font-family: var(--font-family-display);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  :where(h1) { font-size: var(--font-size-step-5); }
+  :where(h2) { font-size: var(--font-size-step-4); }
+  :where(h3) { font-size: var(--font-size-step-2); }
+  :where(h4) { font-size: var(--font-size-step-1); }
+  :where(small, figcaption, caption) { font-size: var(--font-size-step-minus-1); }
+
+  /* pretty solo en texto corto (pies, definiciones, .texto-corto); la prosa queda en wrap, como pide
+     better-typography para el texto largo. En un capítulo largo, pretty se activa con una regla
+     propia solo si pruebas/prueba_texto_largo.py lo justifica con el dato de ESE capítulo (C8). */
+  :where(figcaption, dd, .texto-corto) { text-wrap: pretty; }
+  /* guionado solo en la prosa larga (.lectura, .prosa): en titulares, entradillas, botones y tablas partía
+     siglas, DOI y nombres («CGO-CUS», «Martí-nez», «Data-verse»; landing del 23-09-2026). Lo que nunca se
+     parte, tampoco dentro de la prosa: siglas, código, DOI, URL y .no-partir. */
+  :where(.lectura, .prosa) :where(p):lang(es) { hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+  :where(abbr, .siglas, code, kbd, samp, .doi, .url, .no-partir) { hyphens: none; }
+
+  /* enlaces y superficies del navegador tematizadas (craft-floor, «Browser surfaces») */
+  :where(a) {
+    color: var(--color-accent-text);
+    text-decoration-thickness: from-font;
+    text-underline-offset: 0.2em;
+  }
+  :where(a:hover) { text-decoration-thickness: var(--border-width-focus); }
+  ::selection { background: var(--color-selection-bg); color: var(--color-text-primary); }
+  :where(:focus-visible) {
+    outline: var(--border-width-focus) solid var(--color-focus-ring);
+    outline-offset: var(--border-width-focus);
+  }
+  @media (forced-colors: active) {
+    :where(:focus-visible) { outline-color: Highlight; }
+  }
+
+  /* cifras: tabulares en tablas y datos; en prosa, las de la fuente */
+  :where(table, [data-cifras], time, output, data) { font-variant-numeric: tabular-nums lining-nums; }
+  :where(code, kbd, samp, pre) { font-family: var(--font-family-mono); font-size: 0.92em; }
+
+  /* capa española (RECURSOS_DISENO §3): comillas por lengua, siglas en versalitas reales */
+  :where(:lang(es)) q { quotes: "«" "»" "“" "”" "‘" "’"; }
+  :where(:lang(en)) q { quotes: "“" "”" "‘" "’"; }
+  :where(abbr.siglas, .siglas) { font-variant-caps: all-small-caps; letter-spacing: 0.05em; text-decoration: none; }
+
+  /* formularios: etiqueta visible, borde de control ≥ 3:1, objetivo ≥ 24 px */
+  :where(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea) {
+    background: var(--color-bg-raised);
+    border: var(--border-width-hairline) solid var(--color-border-control);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2xs) var(--space-xs);
+    min-block-size: var(--size-target);
+  }
+  :where(button, [role="button"], input[type="submit"]) { min-block-size: var(--size-target-min); min-inline-size: var(--size-target-min); }
+  :where(:disabled) { cursor: not-allowed; }
+}
+
+/* ------------------------------------------------------------------ layouts (Every Layout) */
+@layer layouts {
+  /* Stack: ritmo vertical */
+  .stack { display: flex; flex-direction: column; justify-content: flex-start; }
+  .stack > * + * { margin-block-start: var(--stack-space, var(--space-s)); }
+  /* Center: medida de lectura */
+  .center { box-sizing: content-box; max-inline-size: calc(var(--measure-reading) * 1ch); margin-inline: auto; padding-inline: var(--space-s); }
+  /* Cluster: grupos en línea que envuelven */
+  .cluster { display: flex; flex-wrap: wrap; gap: var(--cluster-space, var(--space-xs)); align-items: center; }
+  /* Sidebar: barra lateral que cae debajo cuando no cabe */
+  .sidebar { display: flex; flex-wrap: wrap; gap: var(--space-m); }
+  .sidebar > :where(:first-child) { flex-basis: var(--sidebar-width, var(--size-sidebar)); flex-grow: 1; }
+  .sidebar > :where(:last-child) { flex-basis: 0; flex-grow: 999; min-inline-size: var(--sidebar-min, 55%); }
+  /* Switcher: fila ↔ columna según el contenedor, sin media queries */
+  .switcher { display: flex; flex-wrap: wrap; gap: var(--space-m); }
+  .switcher > * { flex-grow: 1; flex-basis: calc((var(--switcher-at, var(--size-switcher-at)) - 100%) * 999); }
+  /* Grid: rejilla que nunca desborda a 320 px */
+  .grid { display: grid; gap: var(--space-m); grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, var(--size-grid-min)), 100%), 1fr)); }
+  /* Cover: bloque de altura mínima con un elemento centrado */
+  .cover { display: flex; flex-direction: column; min-block-size: var(--cover-min, 100svh); padding: var(--space-m); }
+  .cover > :where(.cover__centro) { margin-block: auto; }
+  /* Contenedor que responde a su tamaño (container queries antes que media queries) */
+  .contenedor { container-type: inline-size; }
+  /* Lectura: prosa larga con las preferencias del lector (contrato 7): tamaño, interlineado, familia.
+     La medida la pone .center con --measure-reading, que el lector también puede cambiar. */
+  .lectura {
+    font-family: var(--font-family-reading, var(--font-family-body));
+    font-size: calc(var(--font-size-step-0) * var(--reader-scale, 1));
+    line-height: var(--leading-reading);
+  }
+}
+
+/* ------------------------------------------------------------------ utilities */
+@layer utilities {
+  /* [hidden] va en la capa MÁS ALTA: en reset lo anulaba cualquier componente con display (las anclas y
+     las pestañas de una figura salían a la vez; la barra de la lente se veía oculta). until-found se
+     queda fuera: su content-visibility: hidden lo pone el navegador. */
+  [hidden]:where(:not([hidden="until-found"])) { display: none; }
+  .visualmente-oculto:where(:not(:focus-within, :active)) {
+    clip-path: inset(50%); block-size: 1px; inline-size: 1px; overflow: hidden; position: absolute; white-space: nowrap;
+  }
+  .salto { position: absolute; inset-inline-start: var(--space-s); inset-block-start: var(--space-s); z-index: 10; }
+  .salto:where(:not(:focus)) { clip-path: inset(50%); }
+}

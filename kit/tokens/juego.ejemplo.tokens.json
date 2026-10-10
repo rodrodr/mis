@@ -1,0 +1,106 @@
+{
+  "$description": "EJEMPLO de paleta de juego (tipos/juego.md): tokens semánticos color.juego.* con sus pares medidos. Úsalo añadiendo {\"$ref\": \"juego.ejemplo.tokens.json\"} a sets.base.sources del resolver (build-tokens.mjs suma sus pares a los de tokens.json) y sustituye los alias por los primitivos de tu mundo. Patrón: una superficie invertida (fichas de papel sobre un escenario oscuro) lleva SU PROPIO token de foco (foco-papel), porque el anillo que se ve sobre el escenario desaparece sobre la ficha. Los pares no textuales (jugador, fichas, bordes, foco) declaran min 3; en alto contraste el build les exige 4,5 sin declarar minAlto.",
+  "color": {
+    "$type": "color",
+    "juego": {
+      "escenario": {
+        "$value": "{color.neutral.950}"
+      },
+      "plano-lejos": {
+        "$value": "{color.neutral.900}"
+      },
+      "plano-cerca": {
+        "$value": "{color.neutral.800}"
+      },
+      "texto": {
+        "$value": "{color.neutral.50}"
+      },
+      "texto-secundario": {
+        "$value": "{color.neutral.300}"
+      },
+      "ficha": {
+        "$value": "{color.neutral.100}"
+      },
+      "ficha-texto": {
+        "$value": "{color.neutral.950}"
+      },
+      "ficha-secundario": {
+        "$value": "{color.neutral.700}"
+      },
+      "jugador": {
+        "$value": "{color.amber.400}"
+      },
+      "ruido": {
+        "$value": "{color.neutral.800}"
+      },
+      "ruido-texto": {
+        "$value": "{color.neutral.100}"
+      },
+      "ruido-borde": {
+        "$value": "{color.neutral.400}"
+      },
+      "foco": {
+        "$value": "{color.brand.300}"
+      },
+      "foco-papel": {
+        "$value": "{color.brand.700}"
+      }
+    }
+  },
+  "$extensions": {
+    "es.maestro": {
+      "contraste": [
+        {
+          "texto": "color.juego.texto",
+          "fondo": "color.juego.escenario",
+          "min": 7
+        },
+        {
+          "texto": "color.juego.texto-secundario",
+          "fondo": "color.juego.escenario",
+          "min": 4.5
+        },
+        {
+          "texto": "color.juego.ficha-texto",
+          "fondo": "color.juego.ficha",
+          "min": 7
+        },
+        {
+          "texto": "color.juego.ficha-secundario",
+          "fondo": "color.juego.ficha",
+          "min": 4.5
+        },
+        {
+          "texto": "color.juego.ruido-texto",
+          "fondo": "color.juego.ruido",
+          "min": 4.5
+        },
+        {
+          "texto": "color.juego.jugador",
+          "fondo": "color.juego.escenario",
+          "min": 3
+        },
+        {
+          "texto": "color.juego.ficha",
+          "fondo": "color.juego.escenario",
+          "min": 3
+        },
+        {
+          "texto": "color.juego.ruido-borde",
+          "fondo": "color.juego.escenario",
+          "min": 3
+        },
+        {
+          "texto": "color.juego.foco",
+          "fondo": "color.juego.escenario",
+          "min": 3
+        },
+        {
+          "texto": "color.juego.foco-papel",
+          "fondo": "color.juego.ficha",
+          "min": 3
+        }
+      ]
+    }
+  }
+}

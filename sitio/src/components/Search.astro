@@ -1,0 +1,81 @@
+---
+// Municipality finder (APG combobox with listbox). Without JS it links to the municipalities index.
+import { t } from '../i18n';
+import type { Lang } from '../lib/format';
+import { href, asset } from '../lib/paths';
+interface Props { lang: Lang; id?: string }
+const { lang, id = 'buscar' } = Astro.props;
+const d = t(lang);
+---
+<form class="busqueda" role="search" action={href(lang, '/municipalities/')} data-busqueda
+  data-src={asset('data/municipalities.json')} data-base={href(lang, '/municipalities/')} data-none={d.common.search_none}>
+  <label for={id}>{d.common.search}</label>
+  <input id={id} name="q" type="search" autocomplete="off" placeholder={d.common.search_placeholder}
+    role="combobox" aria-expanded="false" aria-controls={`${id}-lista`} aria-autocomplete="list" />
+  <ul id={`${id}-lista`} class="busqueda__lista" role="listbox" hidden></ul>
+</form>
+<script>
+  const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const slug = (s: string) => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  type Row = [number, string, string, string, number | null, number];
+  document.querySelectorAll<HTMLFormElement>('[data-busqueda]').forEach((form) => {
+    const input = form.querySelector('input')!;
+    const list = form.querySelector('ul')!;
+    let data: (Row & { k?: string })[] | null = null;
+    let items: Row[] = [];
+    let active = -1;
+    const load = async () => {
+      if (data) return;
+      const r = await fetch(form.dataset.src!);
+      data = await r.json();
+      data!.forEach((x) => (x.k = norm(x[1])));
+    };
+    const url = (x: Row) => `${form.dataset.base}${x[0]}-${slug(x[1])}/`;
+    const render = () => {
+      list.innerHTML = '';
+      if (!items.length) {
+        const li = document.createElement('li');
+        li.textContent = form.dataset.none!;
+        li.setAttribute('aria-disabled', 'true');
+        list.append(li);
+      }
+      items.forEach((x, i) => {
+        const li = document.createElement('li');
+        li.id = `${list.id}-${i}`;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', String(i === active));
+        li.innerHTML = `<span></span><span></span>`;
+        li.children[0].textContent = x[1];
+        li.children[1].textContent = x[2];
+        li.addEventListener('click', () => (location.href = url(x)));
+        list.append(li);
+      });
+      list.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      input.setAttribute('aria-activedescendant', active >= 0 ? `${list.id}-${active}` : '');
+    };
+    const close = () => { list.hidden = true; input.setAttribute('aria-expanded', 'false'); active = -1; };
+    input.addEventListener('focus', load, { once: true });
+    input.addEventListener('input', async () => {
+      await load();
+      const q = norm(input.value.trim());
+      if (q.length < 2) return close();
+      const code = /^\d+$/.test(q);
+      items = data!.filter((x) => (code ? String(x[0]).startsWith(q) : x.k!.includes(q)))
+        .sort((a, b) => Number(!(a as any).k.startsWith(q)) - Number(!(b as any).k.startsWith(q)) || b[5] - a[5])
+        .slice(0, 12);
+      active = items.length ? 0 : -1;
+      render();
+    });
+    input.addEventListener('keydown', (e) => {
+      if (list.hidden) return;
+      if (e.key === 'ArrowDown') { active = Math.min(items.length - 1, active + 1); render(); e.preventDefault(); }
+      else if (e.key === 'ArrowUp') { active = Math.max(0, active - 1); render(); e.preventDefault(); }
+      else if (e.key === 'Escape') close();
+    });
+    form.addEventListener('submit', (e) => {
+      if (active >= 0 && items[active]) { e.preventDefault(); location.href = url(items[active]); }
+    });
+    input.addEventListener('blur', () => setTimeout(close, 150));
+  });
+</script>

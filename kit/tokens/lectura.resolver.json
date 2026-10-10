@@ -1,0 +1,75 @@
+{
+  "name": "maestro-diseno-web · lectura",
+  "version": "2025.10",
+  "sets": {
+    "base": {
+      "sources": [
+        {
+          "$ref": "tokens.json"
+        },
+        {
+          "$ref": "lectura.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "contexts": {
+        "light": [],
+        "dark": [
+          {
+            "$ref": "contextos/dark.tokens.json"
+          }
+        ],
+        "sepia": [
+          {
+            "$ref": "contextos/sepia.tokens.json"
+          }
+        ],
+        "black": [
+          {
+            "$ref": "contextos/black.tokens.json"
+          }
+        ]
+      },
+      "default": "light"
+    },
+    "contrast": {
+      "contexts": {
+        "normal": [],
+        "more": [
+          {
+            "$ref": "contextos/contrast-more.tokens.json"
+          }
+        ]
+      },
+      "default": "normal"
+    },
+    "motion": {
+      "contexts": {
+        "normal": [],
+        "reduce": [
+          {
+            "$ref": "contextos/motion-reduce.tokens.json"
+          }
+        ]
+      },
+      "default": "normal"
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/base"
+    },
+    {
+      "$ref": "#/modifiers/theme"
+    },
+    {
+      "$ref": "#/modifiers/contrast"
+    },
+    {
+      "$ref": "#/modifiers/motion"
+    }
+  ]
+}

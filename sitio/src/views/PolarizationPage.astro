@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from '../components/Figure.astro';
+import MapPair from '../components/MapPair.astro';
+import Ramp from '../components/Ramp.astro';
+import { t } from '../i18n';
+import { score, num, pct, fill, type Lang } from '../lib/format';
+import { href } from '../lib/paths';
+import { facts, states, years, counterfactual, UF_NAMES, general } from '../lib/data';
+import { p1, p2, p4, p5, p6, p7 } from '../lib/figs2';
+import { statePosterBy, inkFill, changeFill } from '../lib/poster';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const Y = facts.last.year;
+const f1 = p1(lang), f2 = p2(lang), f4 = p4(lang), f5 = p5(lang), f6 = p6(lang), f7 = p7(lang);
+const lastFix = counterfactual.dalton_fixed.filter((r) => r.year === Y)[0];
+const n1 = (v: number) => num(lang, v, 2);
+const yr = { key: 'year', label: d.common.year };
+const ar = { key: 'arena', label: d.common.arena };
+const prevGen = general[general.length - 2].year;
+const dl = (uf: string, y: number) => states[uf]?.find((r) => r.year === y)?.dalton_wmean ?? null;
+const posterChange = statePosterBy((uf) => { const a = dl(uf, prevGen), b = dl(uf, Y); return a == null || b == null ? null : b - a; }, (v) => changeFill(v, 1.5), (uf, v) => `${UF_NAMES[uf]}: ${v == null ? '—' : score(lang, v, 2)}`);
+const poster = statePosterBy((uf) => states[uf]?.find((r) => r.year === Y)?.dalton_wmean ?? null, (v) => inkFill(v, 3.5, 6), (uf, v) => `${UF_NAMES[uf]}: ${v == null ? '—' : num(lang, v, 2)}`);
+---
+<Base lang={lang} title={d.pol.title} section="polarization">
+  <div class="stack" style="--stack-space: var(--space-s)">
+    <h1 class="titulo-pagina">{d.pol.title}</h1>
+    <p class="lede">{d.pol.lede}</p>
+  </div>
+  <div class="stack" style="--stack-space: var(--space-2xl); margin-block-start: var(--space-xl)">
+    <section class="relato">
+      <Figure lang={lang} id="p1" title={fill(d.pol.p1_title, { maxYear: facts.daltonMax.year })} subtitle={d.pol.p1_sub} svg={f1.svg} rows={f1.rows}
+        columns={[yr, ar, { key: 'typ', label: d.common.typical, num: true, fmt: (v) => n1(v as number) }, { key: 'el', label: d.common.electorate, num: true, fmt: (v) => n1(v as number) }]}>
+        <ul slot="legend" class="leyenda" role="list"><li>● {d.common.typical}</li><li>○ {d.common.electorate}</li></ul>
+      </Figure>
+      <div class="prosa"><p class="numeral">{num(lang, facts.daltonMax.dalton_mean, 2)}</p>
+        <p>{fill(d.pol.p1_text, { minYear: facts.daltonMin.year, min: n1(facts.daltonMin.dalton_mean), maxYear: facts.daltonMax.year, max: n1(facts.daltonMax.dalton_mean), wmax: n1(facts.daltonMax.dalton_wmean) })}</p></div>
+    </section>
+    <section class="relato">
+      <Figure lang={lang} id="p2" title={d.pol.p2_title} subtitle={d.pol.p2_sub.replace('{year}', String(Y))} svg={f2.svg} rows={f2.rows}
+        columns={[{ key: 'panel', label: d.common.value }, { key: 'sig', label: d.method.party }, { key: 'th', label: d.method.score, num: true, fmt: (v) => score(lang, v as number, 2) }, { key: 's', label: d.method.share, num: true, fmt: (v) => pct(lang, v as number) }]} />
+      <div class="prosa"><p>{d.pol.p2_text}</p></div>
+    </section>
+    <MapPair title={d.pol.p3_title} subtitle={d.pol.p3_sub}
+      panels={[
+        { title: fill(d.pol.level, { year: Y }), poster, ramp: { kind: 'ink', lo: `≤ ${num(lang, 3.5, 1)}`, hi: `≥ ${num(lang, 6, 1)}`, label: `${d.common.dalton} (0–10)` } },
+        { title: fill(d.pol.change, { from: prevGen, to: Y }), poster: posterChange, ramp: { kind: 'ink', lo: num(lang, 0, 1), hi: `≥ +${num(lang, 1.5, 1)}`, label: `Δ ${d.common.dalton}` }, hatchNote: d.pol.decrease },
+      ]}
+      link={{ href: href(lang, `/map/?year=${Y}&var=dalton`), text: d.home.map_link }} />
+    <section class="relato">
+      <Figure lang={lang} id="p4" title={d.pol.p4_title} subtitle={d.pol.p4_sub} svg={f4.svg} rows={f4.rows}
+        columns={[yr, ar, { key: 'enep', label: d.common.enep, num: true, fmt: (v) => n1(v as number) }, { key: 'dalton', label: d.common.dalton, num: true, fmt: (v) => n1(v as number) }]} />
+      <div class="prosa"><p>{fill(d.pol.p4_text, { enepFrom: n1(facts.enepDrop.from.enep_mean), enepTo: n1(facts.enepDrop.to.enep_mean) })}</p></div>
+    </section>
+    <section class="relato">
+      <Figure lang={lang} id="p5" title={d.pol.p5_title} subtitle={d.pol.p5_sub} svg={f5.svg} rows={f5.rows} stamp={d.common.stamp_experimental}
+        columns={[yr, ar, { key: 'act', label: d.pol.actual, num: true, fmt: (v) => n1(v as number) }, { key: 'fix', label: d.pol.fixed, num: true, fmt: (v) => n1(v as number) }]} />
+      <div class="prosa"><p>{fill(d.pol.p5_text, { year: Y, fixed: n1(lastFix.dalton_fixed), actual: n1(lastFix.dalton_actual) })}</p></div>
+    </section>
+    <section>
+      <Figure lang={lang} id="p6" title={d.pol.p6_title} subtitle={d.pol.p6_sub} svg={f6.svg} rows={f6.rows}
+        columns={[yr, ar, ...f6.keys.map(([, lab]) => ({ key: lab, label: lab, num: true, fmt: (v: unknown) => num(lang, v as number, 3) }))]} />
+    </section>
+    <section>
+      <Figure lang={lang} id="p7" title={d.pol.p7_title} subtitle={d.pol.p7_sub} svg={f7.svg} rows={f7.rows}
+        columns={[yr, ar, { key: 'enep', label: d.common.enep, num: true, fmt: (v) => n1(v as number) }, { key: 'fragi', label: d.pol.enep_entropy, num: true, fmt: (v) => n1(v as number) }, { key: 'maxp', label: d.muni.maxp, num: true, fmt: (v) => pct(lang, v as number) }]} />
+    </section>
+  </div>
+</Base>
+<script>
+  import '../scripts/figuras';
+</script>

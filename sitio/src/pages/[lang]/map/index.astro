@@ -1,0 +1,7 @@
+---
+import MapPage from '../../../views/MapPage.astro';
+import type { Lang } from '../../../lib/format';
+export function getStaticPaths() { return [{ params: { lang: 'pt' } }, { params: { lang: 'es' } }]; }
+const { lang } = Astro.params as { lang: Lang };
+---
+<MapPage lang={lang} />

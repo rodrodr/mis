@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Figure from '../components/Figure.astro';
+import MapPair from '../components/MapPair.astro';
+import { GRUPOS, grupoColor } from '../lib/grupos';
+import { t } from '../i18n';
+import { score, num, pct, fill, count, type Lang } from '../lib/format';
+import { href } from '../lib/paths';
+import { facts, states, general, municipal, byYear, UF_NAMES } from '../lib/data';
+import { g1, g2, g3, g4, g6 } from '../lib/figs2';
+import { statePosterBy, inkFill, changeFill } from '../lib/poster';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const Y = facts.last.year;
+const f1 = g1(lang), f2 = g2(lang), f3 = g3(lang), f4 = g4(lang, Y), f6 = g6(lang, Y, municipal[municipal.length - 1].year);
+const yr = { key: 'year', label: d.common.year };
+const ar = { key: 'arena', label: d.common.arena };
+const sc = (v: unknown) => score(lang, v as number);
+const pc = (v: unknown) => pct(lang, v as number);
+const gaps = (rows: typeof general) => rows.map((y) => y.gap_mean);
+const prevGen = general[general.length - 2].year;
+const fs = (uf: string, y: number) => states[uf]?.find((r) => r.year === y)?.fem_share_agg ?? null;
+const posterChange = statePosterBy((uf) => { const a = fs(uf, prevGen), b = fs(uf, Y); return a == null || b == null ? null : b - a; }, (v) => changeFill(v, 0.15), (uf, v) => `${UF_NAMES[uf]}: ${v == null ? '—' : score(lang, v * 100, 1)} pp`);
+const poster = statePosterBy((uf) => states[uf]?.find((r) => r.year === Y)?.fem_share_agg ?? null, (v) => inkFill(v, 0.1, 0.35), (uf, v) => `${UF_NAMES[uf]}: ${pct(lang, v)}`);
+---
+<Base lang={lang} title={d.gender.title} section="gender">
+  <div class="stack" style="--stack-space: var(--space-s)">
+    <h1 class="titulo-pagina">{d.gender.title}</h1>
+    <p class="lede">{d.gender.lede}</p>
+    <p class="figura__aviso"><span class="sello">{d.common.stamp_imputed} · 1996</span><span>{d.gender.note_1996}</span></p>
+  </div>
+  <div class="stack" style="--stack-space: var(--space-2xl); margin-block-start: var(--space-xl)">
+    <section class="relato">
+      <Figure lang={lang} id="g1" title={d.gender.g1_title} subtitle={d.gender.g1_sub} svg={f1.svg} rows={f1.rows}
+        columns={[yr, ar, { key: 'agg', label: d.gender.agg, num: true, fmt: pc }, { key: 'mean', label: d.gender.mean, num: true, fmt: pc }, { key: 'votes', label: d.gender.women, num: true, fmt: (v) => count(lang, v as number) }]}>
+        <ul slot="legend" class="leyenda" role="list"><li>● {d.gender.agg}</li><li>○ {d.gender.mean}</li></ul>
+      </Figure>
+      <div class="prosa"><p class="numeral">{pct(lang, facts.last.fem_share_agg)}</p>
+        <p>{fill(d.gender.g1_text, { genFirst: pct(lang, general[0].fem_share_agg), genLast: pct(lang, facts.last.fem_share_agg), lastYear: Y, munFirst: pct(lang, municipal[0].fem_share_agg), munLast: pct(lang, facts.munLast.fem_share_agg), munLastYear: facts.munLast.year })}</p></div>
+    </section>
+    <section class="relato">
+      <Figure lang={lang} id="g2" title={d.gender.g2_title} subtitle={d.gender.g2_sub} svg={f2.svg} rows={f2.rows}
+        columns={[yr, ar, { key: 'f', label: d.gender.women, num: true, fmt: sc }, { key: 'm', label: d.gender.men, num: true, fmt: sc }]}>
+        <ul slot="legend" class="leyenda" role="list"><li>◇ {d.gender.women}</li><li>● {d.gender.men}</li></ul>
+      </Figure>
+      <div></div>
+    </section>
+    <section class="relato">
+      <Figure lang={lang} id="g3" title={d.gender.g3_title} subtitle={d.gender.g3_sub} svg={f3.svg} rows={f3.rows}
+        columns={[yr, ar, { key: 'gap', label: d.common.gender_gap, num: true, fmt: sc }]} />
+      <div class="prosa"><p>{fill(d.gender.g3_text, { genMax: score(lang, Math.max(...gaps(general))), genMin: score(lang, Math.min(...gaps(general))), munMax: score(lang, Math.max(...gaps(municipal))), munMin: score(lang, Math.min(...gaps(municipal))) })}</p></div>
+    </section>
+    <section>
+      <Figure lang={lang} id="g4" title={d.gender.g4_title} subtitle={d.gender.g4_sub.replace('{year}', String(Y))} svg={f4.svg} rows={f4.rows}
+        columns={[{ key: 'sigla', label: d.method.party }, { key: 'theta', label: d.method.score, num: true, fmt: (v) => score(lang, v as number, 2) }, { key: 'share', label: d.gender.g4_x, num: true, fmt: pc }, { key: 'fshare', label: d.common.female_share, num: true, fmt: pc }]}>
+        <p slot="legend" class="figura__marcas"><span class="mono caps">{d.grupos.title.split('(')[0].trim()}:</span>{GRUPOS.map((g, k) => <span title={d.grupos.names[k]}><span class="leyenda__muestra" style={`background:${grupoColor(g)};outline:1px solid var(--color-fig-ink)`}></span>{d.grupos.abbr[k]}</span>)}</p>
+      </Figure>
+    </section>
+    <MapPair title={d.gender.g5_title} subtitle={d.gender.g5_sub}
+      panels={[
+        { title: fill(d.pol.level, { year: Y }), poster, ramp: { kind: 'ink', lo: `≤ ${pct(lang, 0.1, 0)}`, hi: `≥ ${pct(lang, 0.35, 0)}`, label: d.common.female_share } },
+        { title: fill(d.pol.change, { from: prevGen, to: Y }), poster: posterChange, ramp: { kind: 'ink', lo: pct(lang, 0, 0), hi: `≥ +${pct(lang, 0.15, 0)}`, label: `Δ ${d.common.female_share}` }, hatchNote: d.pol.decrease },
+      ]}
+      link={{ href: href(lang, `/map/?year=${Y}&var=gap&agg=ri`), text: `${d.common.gender_gap} · ${d.map.agg_ri}` }} />
+    <section class="relato">
+      <Figure lang={lang} id="g6" title={d.gender.g6_title} subtitle={d.gender.g6_sub} svg={f6.svg} rows={f6.rows}
+        columns={[{ key: 'arena', label: d.common.arena }, { key: 'band', label: d.common.female_share }, { key: 'n', label: d.common.municipalities, num: true, fmt: (v) => count(lang, v as number) }, { key: 'med', label: d.common.gender_gap, num: true, fmt: sc }, { key: 'q1', label: 'P25', num: true, fmt: sc }, { key: 'q3', label: 'P75', num: true, fmt: sc }]}
+        note={fill(d.map.few_votes_note, { n: 300 })} />
+      <div class="prosa"><p>{fill(d.gender.g6_text, { year: Y, band: f6.widest.band, med: score(lang, f6.widest.med), last: f6.lastBand.band, lastMed: score(lang, f6.lastBand.med) })}</p></div>
+    </section>
+  </div>
+</Base>
+<script>
+  import '../scripts/figuras';
+</script>

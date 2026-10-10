@@ -1,0 +1,61 @@
+---
+// Figure anatomy (OWID / kit figura): title = answer, subtitle = question + unit,
+// Chart · Table · Data views (stacked without JS, tabs with JS), source, CSV download.
+import { t } from '../i18n';
+import type { Lang } from '../lib/format';
+
+export interface Column { key: string; label: string; num?: boolean; fmt?: (v: unknown, row: Record<string, unknown>) => string }
+interface Props {
+  lang: Lang; id: string; title: string; subtitle: string;
+  svg?: string; columns: Column[]; rows: Record<string, unknown>[];
+  csv?: string; note?: string; stamp?: string; keyboard?: boolean; rowKey?: string;
+}
+const { lang, id, title, subtitle, svg, columns, rows, csv, note, stamp, keyboard = true, rowKey } = Astro.props;
+const d = t(lang);
+const esc = (v: unknown) => {
+  const s = v == null ? '' : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+};
+const csvText = [columns.map((c) => esc(c.key)).join(','), ...rows.map((r) => columns.map((c) => esc(r[c.key])).join(','))].join('\n');
+const csvHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvText)}`;
+---
+<article data-figura id={id} class="figura" aria-labelledby={`${id}-titulo`}>
+  <h2 id={`${id}-titulo`} class="figura__titulo">{title}</h2>
+  <p class="figura__subtitulo">{subtitle}</p>
+  {stamp && <p class="figura__aviso"><span class="sello">{stamp}</span><span>{d.figure.pending}</span></p>}
+  <slot name="legend" />
+  <nav class="figura__indice" aria-label={d.common.views}>
+    <a href={`#${id}-grafico`}>{d.common.chart}</a>
+    <a href={`#${id}-tabla`}>{d.common.table}</a>
+    <a href={`#${id}-datos`}>{d.common.data}</a>
+  </nav>
+  <section id={`${id}-grafico`} class="figura__vista" aria-labelledby={`${id}-t-grafico`}>
+    <h3 id={`${id}-t-grafico`} class="visualmente-oculto">{d.common.chart}</h3>
+    {svg ? <div data-navegable={keyboard ? '' : undefined} set:html={svg} /> : <slot />}
+  </section>
+  <section id={`${id}-tabla`} class="figura__vista" aria-labelledby={`${id}-t-tabla`}>
+    <h3 id={`${id}-t-tabla`} class="visualmente-oculto">{d.common.table}</h3>
+    <div class="tabla-larga" tabindex="0" role="region" aria-label={d.common.table}>
+      <table>
+        <caption class="visualmente-oculto">{title}</caption>
+        <thead><tr>{columns.map((c) => <th scope="col" data-cifra={c.num ? '' : undefined}>{c.label}</th>)}</tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr data-key={rowKey ? String(r[rowKey]) : undefined}>{columns.map((c, i) => i === 0
+              ? <th scope="row">{c.fmt ? c.fmt(r[c.key], r) : String(r[c.key] ?? '—')}</th>
+              : <td data-cifra={c.num ? '' : undefined}>{c.fmt ? c.fmt(r[c.key], r) : String(r[c.key] ?? '—')}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section id={`${id}-datos`} class="figura__vista stack" aria-labelledby={`${id}-t-datos`}>
+    <h3 id={`${id}-t-datos`} class="visualmente-oculto">{d.common.data}</h3>
+    <p class="cluster">
+      <a class="boton" href={csvHref} download={`${csv ?? id}.csv`}>{d.common.download_csv}</a>
+      {svg && <button type="button" class="boton" data-descargar-svg={`${csv ?? id}.svg`} hidden>{d.common.download_svg}</button>}
+    </p>
+    {note && <details><summary>{d.common.more_about}</summary><p>{note}</p></details>}
+  </section>
+  <p class="figura__fuente">{d.common.source}: {d.common.source_text}</p>
+</article>

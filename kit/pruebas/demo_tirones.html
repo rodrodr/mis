@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regresión de verificar.py · isla que bloquea el hilo</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="Isla que bloquea el hilo principal 30 ms en cada frame: el p95 del frame no puede pasar la puerta.">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./demo.css">
+<script type="module">
+  import { registrar } from '../isla.js';
+  registrar('tirones', () => import('./pieza-tirones.js'));
+</script>
+</head>
+<body>
+<main id="principal" class="center stack">
+  <h1>Isla con tirones</h1>
+  <p>La isla de abajo solo arranca su bucle cuando se pulsa «Jugar», y entonces bloquea el hilo 30 milisegundos en cada frame. Medir sin montar la isla o sin pulsar el botón da una página quieta y un p95 perfecto.</p>
+  <section class="relleno stack" aria-labelledby="t-relleno"><h2 id="t-relleno">Relleno</h2><p>Empuja la isla por debajo del pliegue.</p></section>
+  <maestro-isla pieza="tirones" id="juego">
+    <p>Juego de prueba. <button type="button" id="jugar" class="boton">Jugar</button></p>
+  </maestro-isla>
+</main>
+</body>
+</html>

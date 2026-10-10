@@ -1,0 +1,61 @@
+{
+  "$description": "Alto contraste: SOLO alias a tokens semánticos con tema, para que valga en claro y en oscuro sin combinaciones.",
+  "color": {
+    "text": {
+      "secondary": {
+        "$value": "{color.text.primary}"
+      }
+    },
+    "border": {
+      "subtle": {
+        "$value": "{color.border.control}"
+      },
+      "control": {
+        "$value": "{color.text.primary}"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$value": "{color.text.primary}"
+      }
+    },
+    "accent": {
+      "text": {
+        "$value": "{color.text.primary}"
+      },
+      "solid": {
+        "$value": "{color.accent.solid-strong}"
+      }
+    },
+    "status": {
+      "success": {
+        "$value": "{color.status.success-strong}"
+      },
+      "error": {
+        "$value": "{color.status.error-strong}"
+      },
+      "warning": {
+        "$value": "{color.status.warning-strong}"
+      }
+    },
+    "fig": {
+      "axis": {
+        "$value": "{color.text.primary}"
+      },
+      "hatch": {
+        "$value": "{color.text.primary}"
+      },
+      "grid": {
+        "$value": "{color.border.control}"
+      }
+    },
+    "ideo": {
+      "left-text": {
+        "$value": "{color.ideo.left-text-strong}"
+      },
+      "right-text": {
+        "$value": "{color.ideo.right-text-strong}"
+      }
+    }
+  }
+}

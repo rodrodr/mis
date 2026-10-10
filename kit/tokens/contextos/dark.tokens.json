@@ -1,0 +1,197 @@
+{
+  "$description": "Tema oscuro: se compone aparte, no se invierte el claro (better-colors).",
+  "color": {
+    "bg": {
+      "base": {
+        "$value": "{color.neutral.950}"
+      },
+      "surface": {
+        "$value": "{color.neutral.900}"
+      },
+      "raised": {
+        "$value": "{color.neutral.800}"
+      },
+      "inverse": {
+        "$value": "{color.neutral.100}"
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.neutral.100}"
+      },
+      "secondary": {
+        "$value": "{color.neutral.400}"
+      },
+      "on-accent": {
+        "$value": "{color.neutral.950}"
+      },
+      "inverse": {
+        "$value": "{color.neutral.900}"
+      }
+    },
+    "border": {
+      "subtle": {
+        "$value": "{color.neutral.800}"
+      },
+      "control": {
+        "$value": "{color.neutral.500}"
+      }
+    },
+    "accent": {
+      "solid": {
+        "$value": "{color.brand.400}"
+      },
+      "solid-hover": {
+        "$value": "{color.brand.300}"
+      },
+      "text": {
+        "$value": "{color.brand.300}"
+      },
+      "solid-strong": {
+        "$value": "{color.brand.300}"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$value": "{color.brand.300}"
+      }
+    },
+    "status": {
+      "success": {
+        "$value": "{color.green.400}"
+      },
+      "error": {
+        "$value": "{color.red.400}"
+      },
+      "warning": {
+        "$value": "{color.amber.400}"
+      },
+      "success-strong": {
+        "$value": "{color.green.400}"
+      },
+      "error-strong": {
+        "$value": "{color.red.400}"
+      },
+      "warning-strong": {
+        "$value": "{color.amber.400}"
+      }
+    },
+    "selection": {
+      "bg": {
+        "$value": "{color.neutral.700}"
+      }
+    },
+    "shadow-ink": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.1,
+          0.01,
+          250
+        ],
+        "alpha": 0.5
+      }
+    },
+    "ideo": {
+      "left-strong": {
+        "$value": "{color.left.300}"
+      },
+      "left": {
+        "$value": "{color.left.400}"
+      },
+      "left-soft": {
+        "$value": "{color.left.700}"
+      },
+      "left-faint": {
+        "$value": "{color.left.900}"
+      },
+      "center": {
+        "$value": "{color.neutral.800}"
+      },
+      "right-faint": {
+        "$value": "{color.right.900}"
+      },
+      "right-soft": {
+        "$value": "{color.right.700}"
+      },
+      "right": {
+        "$value": "{color.right.400}"
+      },
+      "right-strong": {
+        "$value": "{color.right.300}"
+      },
+      "left-text": {
+        "$value": "{color.left.300}"
+      },
+      "right-text": {
+        "$value": "{color.right.300}"
+      },
+      "left-text-strong": {
+        "$value": "{color.left.200}"
+      },
+      "right-text-strong": {
+        "$value": "{color.right.200}"
+      }
+    },
+    "fig": {
+      "grid": {
+        "$value": "{color.neutral.800}"
+      },
+      "axis": {
+        "$value": "{color.neutral.400}"
+      },
+      "ink": {
+        "$value": "{color.neutral.100}"
+      },
+      "hatch": {
+        "$value": "{color.neutral.400}"
+      },
+      "stroke": {
+        "$value": "{color.neutral.950}"
+      },
+      "missing": {
+        "$value": "{color.neutral.700}"
+      },
+      "vote": {
+        "$value": "{color.neutral.100}"
+      },
+      "place": {
+        "$value": "{color.neutral.400}"
+      },
+      "muted": {
+        "$value": "{color.neutral.700}"
+      }
+    },
+    "paper": {
+      "edge": {
+        "$value": "{color.neutral.700}"
+      },
+      "tear": {
+        "$value": "{color.neutral.600}"
+      }
+    },
+    "ideo-grupo": {
+      "ei": {
+        "$value": "{color.grupo-oscuro.ei}"
+      },
+      "i": {
+        "$value": "{color.grupo-oscuro.i}"
+      },
+      "ci": {
+        "$value": "{color.grupo-oscuro.ci}"
+      },
+      "c": {
+        "$value": "{color.grupo-oscuro.c}"
+      },
+      "cd": {
+        "$value": "{color.grupo-oscuro.cd}"
+      },
+      "d": {
+        "$value": "{color.grupo-oscuro.d}"
+      },
+      "ed": {
+        "$value": "{color.grupo-oscuro.ed}"
+      }
+    }
+  }
+}

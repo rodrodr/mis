@@ -1,0 +1,1062 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T19:59:03+00:00",
+  "title": "Design System: MIS · Municipal Ideological Score",
+  "extensions": {
+    "colorMeta": {
+      "bg-base": {
+        "role": "neutral",
+        "displayName": "Counter Grey",
+        "canonical": "oklch(0.948 0.004 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-base-dark": {
+        "role": "neutral",
+        "displayName": "Counter Grey (dark)",
+        "canonical": "oklch(0.17 0.012 260)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-surface": {
+        "role": "neutral",
+        "displayName": "Paper Shadow",
+        "canonical": "oklch(0.905 0.005 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-surface-dark": {
+        "role": "neutral",
+        "displayName": "Paper Shadow (dark)",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-raised": {
+        "role": "neutral",
+        "displayName": "Thermal Paper",
+        "canonical": "oklch(0.972 0.003 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-raised-dark": {
+        "role": "neutral",
+        "displayName": "Thermal Paper (dark)",
+        "canonical": "oklch(0.3 0.011 255)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-inverse": {
+        "role": "neutral",
+        "displayName": "Inverse Slip",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "bg-inverse-dark": {
+        "role": "neutral",
+        "displayName": "Inverse Slip (dark)",
+        "canonical": "oklch(0.948 0.004 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "text-primary": {
+        "role": "primary",
+        "displayName": "Thermal Ink",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "text-primary-dark": {
+        "role": "primary",
+        "displayName": "Thermal Ink (dark)",
+        "canonical": "oklch(0.948 0.004 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Faded Ink",
+        "canonical": "oklch(0.47 0.009 245)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "text-secondary-dark": {
+        "role": "neutral",
+        "displayName": "Faded Ink (dark)",
+        "canonical": "oklch(0.7 0.007 235)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "text-inverse": {
+        "role": "neutral",
+        "displayName": "Paper on Ink",
+        "canonical": "oklch(0.972 0.003 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "text-inverse-dark": {
+        "role": "neutral",
+        "displayName": "Paper on Ink (dark)",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "border-subtle": {
+        "role": "neutral",
+        "displayName": "Gridline (borders)",
+        "canonical": "oklch(0.905 0.005 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "border-subtle-dark": {
+        "role": "neutral",
+        "displayName": "Gridline (borders) (dark)",
+        "canonical": "oklch(0.3 0.011 255)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "border-control": {
+        "role": "neutral",
+        "displayName": "Control Grey",
+        "canonical": "oklch(0.58 0.008 240)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "accent-solid": {
+        "role": "primary",
+        "displayName": "Thermal Ink (accent)",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "accent-solid-dark": {
+        "role": "primary",
+        "displayName": "Thermal Ink (accent) (dark)",
+        "canonical": "oklch(0.7 0.007 235)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "accent-text": {
+        "role": "primary",
+        "displayName": "Thermal Ink (links)",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "accent-text-dark": {
+        "role": "primary",
+        "displayName": "Thermal Ink (links) (dark)",
+        "canonical": "oklch(0.84 0.006 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "focus-ring": {
+        "role": "primary",
+        "displayName": "Thermal Ink (focus)",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "focus-ring-dark": {
+        "role": "primary",
+        "displayName": "Thermal Ink (focus) (dark)",
+        "canonical": "oklch(0.84 0.006 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "selection-bg": {
+        "role": "neutral",
+        "displayName": "Selection Paper",
+        "canonical": "oklch(0.905 0.005 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "selection-bg-dark": {
+        "role": "neutral",
+        "displayName": "Selection Paper (dark)",
+        "canonical": "oklch(0.38 0.01 250)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "ideo-left-strong": {
+        "role": "secondary",
+        "displayName": "Thermal Red, strong",
+        "canonical": "oklch(0.46 0.165 27)",
+        "tonalRamp": [
+          "oklch(0.3 0.09 27)",
+          "oklch(0.38 0.13 27)",
+          "oklch(0.46 0.165 27)",
+          "oklch(0.54 0.18 27)",
+          "oklch(0.62 0.165 26)",
+          "oklch(0.71 0.135 25)",
+          "oklch(0.81 0.09 25)",
+          "oklch(0.95 0.022 25)"
+        ]
+      },
+      "ideo-left-strong-dark": {
+        "role": "secondary",
+        "displayName": "Thermal Red, strong (dark)",
+        "canonical": "oklch(0.81 0.09 25)",
+        "tonalRamp": [
+          "oklch(0.3 0.09 27)",
+          "oklch(0.38 0.13 27)",
+          "oklch(0.46 0.165 27)",
+          "oklch(0.54 0.18 27)",
+          "oklch(0.62 0.165 26)",
+          "oklch(0.71 0.135 25)",
+          "oklch(0.81 0.09 25)",
+          "oklch(0.95 0.022 25)"
+        ]
+      },
+      "ideo-left": {
+        "role": "secondary",
+        "displayName": "Thermal Red",
+        "canonical": "oklch(0.54 0.18 27)",
+        "tonalRamp": [
+          "oklch(0.3 0.09 27)",
+          "oklch(0.38 0.13 27)",
+          "oklch(0.46 0.165 27)",
+          "oklch(0.54 0.18 27)",
+          "oklch(0.62 0.165 26)",
+          "oklch(0.71 0.135 25)",
+          "oklch(0.81 0.09 25)",
+          "oklch(0.95 0.022 25)"
+        ]
+      },
+      "ideo-left-dark": {
+        "role": "secondary",
+        "displayName": "Thermal Red (dark)",
+        "canonical": "oklch(0.71 0.135 25)",
+        "tonalRamp": [
+          "oklch(0.3 0.09 27)",
+          "oklch(0.38 0.13 27)",
+          "oklch(0.46 0.165 27)",
+          "oklch(0.54 0.18 27)",
+          "oklch(0.62 0.165 26)",
+          "oklch(0.71 0.135 25)",
+          "oklch(0.81 0.09 25)",
+          "oklch(0.95 0.022 25)"
+        ]
+      },
+      "ideo-left-soft": {
+        "role": "secondary",
+        "displayName": "Thermal Red, soft",
+        "canonical": "oklch(0.81 0.09 25)",
+        "tonalRamp": [
+          "oklch(0.3 0.09 27)",
+          "oklch(0.38 0.13 27)",
+          "oklch(0.46 0.165 27)",
+          "oklch(0.54 0.18 27)",
+          "oklch(0.62 0.165 26)",
+          "oklch(0.71 0.135 25)",
+          "oklch(0.81 0.09 25)",
+          "oklch(0.95 0.022 25)"
+        ]
+      },
+      "ideo-left-soft-dark": {
+        "role": "secondary",
+        "displayName": "Thermal Red, soft (dark)",
+        "canonical": "oklch(0.46 0.165 27)",
+        "tonalRamp": [
+          "oklch(0.3 0.09 27)",
+          "oklch(0.38 0.13 27)",
+          "oklch(0.46 0.165 27)",
+          "oklch(0.54 0.18 27)",
+          "oklch(0.62 0.165 26)",
+          "oklch(0.71 0.135 25)",
+          "oklch(0.81 0.09 25)",
+          "oklch(0.95 0.022 25)"
+        ]
+      },
+      "ideo-center": {
+        "role": "neutral",
+        "displayName": "Scale Centre (Counter Grey)",
+        "canonical": "oklch(0.948 0.004 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "ideo-center-dark": {
+        "role": "neutral",
+        "displayName": "Scale Centre (Counter Grey) (dark)",
+        "canonical": "oklch(0.3 0.011 255)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "ideo-right-faint": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue, faint",
+        "canonical": "oklch(0.95 0.018 262)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right-faint-dark": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue, faint (dark)",
+        "canonical": "oklch(0.29 0.085 267)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right-soft": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue, soft",
+        "canonical": "oklch(0.81 0.075 262)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right-soft-dark": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue, soft (dark)",
+        "canonical": "oklch(0.44 0.14 265)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue",
+        "canonical": "oklch(0.52 0.15 264)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right-dark": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue (dark)",
+        "canonical": "oklch(0.71 0.11 262)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right-strong": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue, strong",
+        "canonical": "oklch(0.44 0.14 265)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "ideo-right-strong-dark": {
+        "role": "tertiary",
+        "displayName": "Carbon-Copy Blue, strong (dark)",
+        "canonical": "oklch(0.81 0.075 262)",
+        "tonalRamp": [
+          "oklch(0.29 0.085 267)",
+          "oklch(0.36 0.115 266)",
+          "oklch(0.44 0.14 265)",
+          "oklch(0.52 0.15 264)",
+          "oklch(0.61 0.135 263)",
+          "oklch(0.71 0.11 262)",
+          "oklch(0.81 0.075 262)",
+          "oklch(0.95 0.018 262)"
+        ]
+      },
+      "fig-grid": {
+        "role": "neutral",
+        "displayName": "Gridline",
+        "canonical": "oklch(0.905 0.005 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-grid-dark": {
+        "role": "neutral",
+        "displayName": "Gridline (dark)",
+        "canonical": "oklch(0.3 0.011 255)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-axis": {
+        "role": "neutral",
+        "displayName": "Faded Ink (axes)",
+        "canonical": "oklch(0.47 0.009 245)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-axis-dark": {
+        "role": "neutral",
+        "displayName": "Faded Ink (axes) (dark)",
+        "canonical": "oklch(0.7 0.007 235)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-ink": {
+        "role": "primary",
+        "displayName": "Thermal Ink (marks)",
+        "canonical": "oklch(0.225 0.012 258)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-ink-dark": {
+        "role": "primary",
+        "displayName": "Thermal Ink (marks) (dark)",
+        "canonical": "oklch(0.948 0.004 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-hatch": {
+        "role": "neutral",
+        "displayName": "Hatch Grey",
+        "canonical": "oklch(0.58 0.008 240)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-hatch-dark": {
+        "role": "neutral",
+        "displayName": "Hatch Grey (dark)",
+        "canonical": "oklch(0.7 0.007 235)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-stroke": {
+        "role": "neutral",
+        "displayName": "Map Boundary Paper",
+        "canonical": "oklch(0.972 0.003 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-stroke-dark": {
+        "role": "neutral",
+        "displayName": "Map Boundary Paper (dark)",
+        "canonical": "oklch(0.17 0.012 260)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-missing": {
+        "role": "neutral",
+        "displayName": "Blank",
+        "canonical": "oklch(0.84 0.006 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "fig-missing-dark": {
+        "role": "neutral",
+        "displayName": "Blank (dark)",
+        "canonical": "oklch(0.38 0.01 250)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "paper-edge": {
+        "role": "neutral",
+        "displayName": "Paper Edge",
+        "canonical": "oklch(0.84 0.006 230)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "paper-edge-dark": {
+        "role": "neutral",
+        "displayName": "Paper Edge (dark)",
+        "canonical": "oklch(0.38 0.01 250)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "paper-tear": {
+        "role": "neutral",
+        "displayName": "Tear Grey",
+        "canonical": "oklch(0.7 0.007 235)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      },
+      "paper-tear-dark": {
+        "role": "neutral",
+        "displayName": "Tear Grey (dark)",
+        "canonical": "oklch(0.47 0.009 245)",
+        "tonalRamp": [
+          "oklch(0.17 0.012 260)",
+          "oklch(0.225 0.012 258)",
+          "oklch(0.3 0.011 255)",
+          "oklch(0.38 0.01 250)",
+          "oklch(0.58 0.008 240)",
+          "oklch(0.84 0.006 230)",
+          "oklch(0.948 0.004 230)",
+          "oklch(0.972 0.003 230)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Monumental Numeral",
+        "purpose": "The one reading that matters per section; light mono, tabular."
+      },
+      "headline": {
+        "displayName": "Page Title",
+        "purpose": "Uppercase mono page titles."
+      },
+      "title": {
+        "displayName": "Section Title",
+        "purpose": "Narrative step and prose section headings, Atkinson bold."
+      },
+      "figure-title": {
+        "displayName": "Figure Title",
+        "purpose": "Figure titles that state the answer."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running prose; measure about 57ch."
+      },
+      "label": {
+        "displayName": "Receipt Label",
+        "purpose": "Uppercase mono for nav, control labels, buttons, numeral labels."
+      },
+      "label-small": {
+        "displayName": "Small Receipt Label",
+        "purpose": "Receipt section heads, legends, control legends, scale ends."
+      },
+      "mono": {
+        "displayName": "Receipt Text",
+        "purpose": "Receipt rows, panels, tables, chart text, citation."
+      },
+      "stamp": {
+        "displayName": "Stamp",
+        "purpose": "Rubber stamps only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "paper-edge",
+        "value": "filter: drop-shadow(0 1px 0 var(--color-paper-edge))",
+        "purpose": "Only under a torn receipt; the system has no box-shadows."
+      }
+    ],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "footer-split",
+        "value": "50rem"
+      },
+      {
+        "name": "two-column",
+        "value": "60rem"
+      },
+      {
+        "name": "explorer-panel",
+        "value": "64rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Squared paper ticket: uppercase mono label, hairline control border, 4px corners.",
+      "html": "<a class=\"ds-boton\" href=\"#\">Open the map</a>",
+      "css": ".ds-boton{display:inline-flex;align-items:center;min-block-size:var(--size-target);padding-inline:var(--space-s);background:var(--color-bg-raised);color:var(--color-text-primary);border:var(--border-width-hairline) solid var(--color-border-control);border-radius:var(--radius-sm);font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-1);text-transform:uppercase;letter-spacing:0.03em;text-decoration:none}.ds-boton:focus-visible{outline:var(--border-width-focus) solid var(--color-focus-ring);outline-offset:var(--border-width-focus)}"
+    },
+    {
+      "name": "Button (pressed)",
+      "kind": "button",
+      "refersTo": "button-pressed",
+      "description": "Toggle state (Play): inverts to ink with paper text.",
+      "html": "<button type=\"button\" class=\"ds-boton-p\" aria-pressed=\"true\">Pause</button>",
+      "css": ".ds-boton-p{min-block-size:var(--size-target);padding-inline:var(--space-s);border:var(--border-width-hairline) solid var(--color-border-control);border-radius:var(--radius-sm);font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-1);text-transform:uppercase;letter-spacing:0.03em;background:var(--color-bg-raised);color:var(--color-text-primary)}.ds-boton-p[aria-pressed=\"true\"]{background:var(--color-text-primary);color:var(--color-bg-raised)}.ds-boton-p:focus-visible{outline:var(--border-width-focus) solid var(--color-focus-ring);outline-offset:var(--border-width-focus)}"
+    },
+    {
+      "name": "Search (receipt input line)",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Dashed-border paper input under an uppercase mono label.",
+      "html": "<label class=\"ds-busca\"><span>Find a municipality</span><input type=\"search\" placeholder=\"Name or IBGE code\"></label>",
+      "css": ".ds-busca{display:flex;flex-direction:column;gap:var(--space-3xs);max-inline-size:30rem}.ds-busca span{font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-1);text-transform:uppercase;letter-spacing:0.04em;color:var(--color-text-primary)}.ds-busca input{font:inherit;font-family:var(--font-family-mono);min-block-size:var(--size-target);padding:var(--space-2xs) var(--space-xs);background:var(--color-bg-raised);color:var(--color-text-primary);border:var(--border-width-hairline) dashed var(--color-border-control);border-radius:var(--radius-sm)}.ds-busca input:focus-visible{outline:var(--border-width-focus) solid var(--color-focus-ring);outline-offset:var(--border-width-focus)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Uppercase mono links; current page has a wavy underline, current language is bracketed.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Evolution</a><a href=\"#\">Map</a><a href=\"#\">Methodology</a><span class=\"ds-nav__lang\"><a href=\"#\" aria-current=\"true\">en</a><a href=\"#\">pt</a><a href=\"#\">es</a></span></nav>",
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;gap:0 var(--space-s);align-items:center;background:var(--color-bg-raised);padding:var(--space-2xs) var(--space-s);border-block-end:var(--border-width-hairline) dashed var(--color-paper-tear)}.ds-nav a{display:inline-flex;align-items:center;min-block-size:var(--size-target);font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-1);text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;color:var(--color-text-primary)}.ds-nav a[aria-current=\"page\"]{text-decoration:underline;text-decoration-style:wavy;text-underline-offset:0.35em;text-decoration-thickness:var(--border-width-hairline)}.ds-nav a:focus-visible{outline:var(--border-width-focus) solid var(--color-focus-ring);outline-offset:var(--border-width-focus)}.ds-nav__lang{display:flex;gap:var(--space-3xs);margin-inline-start:auto}.ds-nav__lang [aria-current=\"true\"]{font-weight:700}.ds-nav__lang [aria-current=\"true\"]::before{content:\"[\"}.ds-nav__lang [aria-current=\"true\"]::after{content:\"]\"}"
+    },
+    {
+      "name": "Stamp",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "Rubber stamp for data state: double rule, -4 degree rotation, always beside a plain note.",
+      "html": "<p class=\"ds-sello-fila\"><span class=\"ds-sello\">Provisional</span><span>First-round boletins of 5 Oct 2026.</span></p>",
+      "css": ".ds-sello-fila{display:flex;gap:var(--space-xs);align-items:center;color:var(--color-text-secondary);font-size:var(--font-size-step-minus-1)}.ds-sello{display:inline-block;padding:0.15em 0.55em;border:2px solid currentColor;border-radius:var(--radius-sm);outline:1px solid currentColor;outline-offset:2px;font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-2);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;transform:rotate(-4deg);color:var(--color-text-primary)}"
+    },
+    {
+      "name": "Receipt",
+      "kind": "card",
+      "refersTo": "receipt",
+      "description": "Signature boletim: torn-edged paper slip, one block per office, one row per election with a printed strip.",
+      "html": "<section class=\"ds-recibo\"><header class=\"ds-recibo__cab\"><strong>MIS · 1994–2026 · 5,571 municipalities</strong></header><h3 class=\"ds-recibo__sec\">Federal deputy · general elections</h3><div class=\"ds-recibo__fila\"><span>2022</span><span class=\"ds-tira\"><i class=\"ds-tira__cero\" style=\"inset-inline-start:50%\"></i><i class=\"ds-tira__el\" style=\"inset-inline-start:66%\"></i><i class=\"ds-tira__ti\" style=\"inset-inline-start:69%\"></i></span><span>+0.190</span></div><div class=\"ds-recibo__fila\"><span>2026</span><span class=\"ds-tira\"><i class=\"ds-tira__cero\" style=\"inset-inline-start:50%\"></i><i class=\"ds-tira__el\" style=\"inset-inline-start:68%\"></i><i class=\"ds-tira__ti\" style=\"inset-inline-start:71%\"></i></span><span>+0.208*</span></div></section>",
+      "css": ".ds-recibo{--dente:0.6rem;max-inline-size:27rem;background:var(--color-bg-raised);color:var(--color-text-primary);font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-1);padding:calc(var(--space-m) + var(--dente)) var(--space-m);--a:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%276%27%3E%3Cpath d=%27M0 6L6 0L12 6Z%27/%3E%3C/svg%3E\");--b:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%276%27%3E%3Cpath d=%27M0 0L6 6L12 0Z%27/%3E%3C/svg%3E\");-webkit-mask:var(--a) top left/12px 6px repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - 12px) no-repeat,var(--b) bottom left/12px 6px repeat-x;mask:var(--a) top left/12px 6px repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - 12px) no-repeat,var(--b) bottom left/12px 6px repeat-x;filter:drop-shadow(0 1px 0 var(--color-paper-edge))}.ds-recibo__cab{text-align:center;text-transform:uppercase;letter-spacing:0.05em}.ds-recibo__sec{margin-block:var(--space-s) var(--space-2xs);padding-block-start:var(--space-xs);border-block-start:var(--border-width-focus) dashed var(--color-paper-tear);font-size:var(--font-size-step-minus-2);font-weight:400;text-transform:uppercase;letter-spacing:0.05em}.ds-recibo__fila{display:grid;grid-template-columns:3.4em minmax(0,1fr) 5.6em;align-items:center;gap:var(--space-2xs);min-block-size:1.6em;font-variant-numeric:tabular-nums}.ds-recibo__fila>span:last-child{text-align:end}.ds-tira{position:relative;block-size:1em;margin-block-end:0.5em;border-block-end:var(--border-width-hairline) solid var(--color-fig-grid);background:linear-gradient(90deg,var(--color-fig-grid) 1px,transparent 1px) 0 100%/25% 0.35em repeat-x}.ds-tira>i{position:absolute;inset-block-end:-0.45em;translate:-50% 0;inline-size:0.8em;block-size:0.8em;border-radius:50%}.ds-tira .ds-tira__cero{inline-size:0;block-size:1.4em;border-radius:0;inset-block-end:-0.7em;border-inline-start:var(--border-width-hairline) dotted var(--color-fig-axis)}.ds-tira .ds-tira__ti{background:var(--color-fig-ink);inline-size:0.7em;block-size:0.7em;inset-block-end:-0.4em}.ds-tira .ds-tira__el{border:1.5px solid var(--color-fig-ink);background:var(--color-bg-raised)}"
+    },
+    {
+      "name": "Year Rail",
+      "kind": "custom",
+      "refersTo": "year-rail-button",
+      "description": "Election picker: dashed paper tickets; the selected year is ruled in ink and punched.",
+      "html": "<div class=\"ds-riel\"><span>Gen</span><button type=\"button\">2018</button><button type=\"button\">2022</button><button type=\"button\" aria-pressed=\"true\">2026</button></div>",
+      "css": ".ds-riel{display:flex;flex-wrap:wrap;gap:2px;align-items:center;font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-2)}.ds-riel>span{inline-size:3em;text-transform:uppercase}.ds-riel button{min-inline-size:3.1em;min-block-size:var(--size-target-min);padding:0.2em 0.3em;background:var(--color-bg-raised);color:var(--color-text-primary);border:var(--border-width-hairline) dashed var(--color-paper-tear);font:inherit}.ds-riel button:focus-visible{outline:var(--border-width-focus) solid var(--color-focus-ring);outline-offset:var(--border-width-focus)}.ds-riel button[aria-pressed=\"true\"]{border:var(--border-width-focus) solid var(--color-text-primary);font-weight:700;position:relative}.ds-riel button[aria-pressed=\"true\"]::after{content:\"\";position:absolute;inset-block-start:-0.35em;inset-inline-start:50%;translate:-50% 0;inline-size:0.55em;block-size:0.55em;border-radius:50%;background:var(--color-bg-base);border:var(--border-width-hairline) solid var(--color-text-primary)}"
+    },
+    {
+      "name": "Tear Line",
+      "kind": "custom",
+      "description": "Perforated section break: 2px dashed tear grey.",
+      "html": "<hr class=\"ds-perforado\">",
+      "css": ".ds-perforado{border:0;border-block-start:var(--border-width-focus) dashed var(--color-paper-tear);margin-block:var(--space-xl)}"
+    },
+    {
+      "name": "Few-votes Hatch",
+      "kind": "custom",
+      "description": "State as a mark: 45 degree hatching for municipalities with fewer than 300 female votes.",
+      "html": "<p class=\"ds-trama-fila\"><span class=\"ds-trama\"></span> Fewer than 300 female votes</p>",
+      "css": ".ds-trama-fila{display:flex;gap:var(--space-2xs);align-items:center;font-family:var(--font-family-mono);font-size:var(--font-size-step-minus-2);color:var(--color-text-primary)}.ds-trama{display:inline-block;inline-size:1.4em;block-size:0.9em;background:repeating-linear-gradient(45deg,var(--color-fig-hatch) 0 1px,transparent 1px 4px);border:var(--border-width-hairline) solid var(--color-fig-hatch)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Boletim de Urna",
+    "overview": "Every figure on the site is printed as the receipt a Brazilian ballot box prints when the polls close, summed municipality by municipality. The ground is cool thermal paper laid on a slightly greyer counter. The ink is thermal black that fades to grey for anything secondary. Only two coloured inks exist: thermal red for the left and carbon-copy blue for the right. Numbers, labels, headers and controls are set in a monospace receipt face. Sentences use a hyperlegible companion face. The system rejects the dark dashboard of KPI tiles and the cream broadsheet.\n\nDensity is that of a printed slip: compact rows with tabular figures, hairline and dashed rules, and no ornament that a thermal printer could not make. State is printed as a mark, never as a colour. A provisional result gets a rubber stamp, imputed data gets a stamp, a municipality with too few votes is hatched, missing data is left blank, and a selection is bracketed, underlined with a wave or punched. Sections are separated by perforated tear lines. A section carries at most one monumental numeral and highlights the one line that matters.\n\nThe world has a dark theme (\"carbon\"), a more-contrast context and a reduced-motion context, all driven by the same tokens. The diverging map ramp is read from the tokens at runtime, so the map re-inks when the theme changes.",
+    "keyCharacteristics": [
+      "Thermal paper on a counter: flat tonal layers, torn zigzag edges, dashed perforations.",
+      "Hue is reserved for ideology. Red means left, blue means right, and the centre of the scale is paper grey.",
+      "State is a mark: stamps, brackets, punched holes, hatching, blanks.",
+      "Martian Mono prints every number and label. Atkinson Hyperlegible Next carries every sentence.",
+      "At most one monumental numeral per section, in light-weight mono at up to 6rem."
+    ],
+    "rules": [
+      {
+        "name": "The Two Inks Rule",
+        "body": "Hue means ideology and nothing else. Thermal red is left and carbon-copy blue is right, on a diverging scale that passes through paper grey. Gender, office, arena, selection and status never get a hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The State Is a Mark Rule",
+        "body": "A data state is printed, never coloured. Provisional and imputed data get a stamp. Few votes gets hatching. Missing data is blank paper grey. A selection is shown with a bracket, a wavy underline, a 2px ink border or a punched hole.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Is the Accent Rule",
+        "body": "Links, focus rings, active tabs and pressed buttons use thermal ink. The kit's status reds, greens and ambers are not part of this world.",
+        "section": "colors"
+      },
+      {
+        "name": "The Receipt Type Rule",
+        "body": "If the machine would print it (a number, a code, a label, a header, a control), it is set in Martian Mono. If a person would say it as a sentence, it is set in Atkinson. Uppercase is allowed only in mono labels, page titles and stamps (a registered exception in PRODUCT.md), never in running prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Numeral Rule",
+        "body": "Each section carries at most one monumental numeral. It is the reading that matters. Every other number stays at receipt size.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Every number in a row, table, list, ranking or readout uses tabular lining figures, so the columns line up like a printed tally.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper-on-Counter Rule",
+        "body": "Something sits above the page only because it is a separate slip of paper, never because it floats. Lift is shown with tone and torn edges, never with blur.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do print every number, code and label in Martian Mono, with tabular lining figures wherever numbers sit in rows.",
+      "Do mark data state with a printed mark: a −4° double-ruled stamp for provisional, imputed or experimental data, 45° hatching (1px lines at 4px pitch) for fewer than 300 female votes, and blank paper grey for missing data.",
+      "Do separate sections with a perforated tear line (2px dashed `paper-tear`, `spacing.xl` above and below).",
+      "Do give a section at most one monumental numeral (Martian Mono 300, up to 6rem, −0.04em) with an uppercase mono label above it.",
+      "Do draw ideology on the diverging scale from `ideo-left-strong` through `ideo-center` to `ideo-right-strong`, reading the colours from the tokens at runtime so the dark theme re-inks the map.",
+      "Do mark the current or selected item with a bracket, a wavy underline, a 2px ink border or a punched hole.",
+      "Do encode arena and average by stroke and fill: solid versus dashed lines, filled dot for the typical municipality, hollow ring for the electorate."
+    ],
+    "donts": [
+      "Don't use red or blue for anything other than left and right. That rules out women versus men, mayor versus governor, selection markers and status messages.",
+      "Don't add box-shadows, floating cards, or corners rounder than 4px on surfaces and controls. Paper is square and lies flat.",
+      "Don't set running prose in uppercase, and don't set long-form prose (prose blocks, ledes, narrative steps) in mono. Uppercase is limited to mono labels, page titles and stamps.",
+      "Don't fade older receipt rows or tint state. A faded row reads as worse data.",
+      "Don't put the general and municipal arenas on one continuous line or in one series.",
+      "Don't use glyph icons as control labels. Name the control in words.",
+      "Don't build the dark dashboard of KPI tiles or the cream broadsheet. Both are the thesis's named anti-references."
+    ]
+  }
+}

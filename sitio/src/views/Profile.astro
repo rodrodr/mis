@@ -1,0 +1,126 @@
+---
+// Municipality profile. Summary, notes and the full data table are server-rendered (they work
+// without JS and are what screen readers and search engines read); charts are drawn by the island.
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n';
+import { score, num, pct, count, fill, type Lang } from '../lib/format';
+import { href, asset } from '../lib/paths';
+import { states, years as natYears, UF_NAMES, facts } from '../lib/data';
+import { rankOf, type Profile } from '../lib/profiles';
+
+interface Props { lang: Lang; p: Profile }
+const { lang, p } = Astro.props;
+const d = t(lang);
+const S = p.s;
+const lastI = p.y.length - 1;
+const lastYear = p.y[lastI];
+const mis = S.ideo[lastI];
+const isGen = (y: number) => (y - 1994) % 4 === 0;
+const mean = (xs: (number | null)[]) => { const v = xs.filter((x): x is number => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+const meanGen = mean(p.y.map((y, i) => (isGen(y) ? S.ideo[i] : null)));
+const meanMun = mean(p.y.map((y, i) => (!isGen(y) ? S.ideo[i] : null)));
+const rk = rankOf(lastYear, p.c);
+const side = mis == null ? '' : mis < -0.02 ? d.muni.side_left : mis > 0.02 ? d.muni.side_right : d.muni.side_centre;
+const rankText = rk ? fill(d.map.rank_text, { rank: count(lang, rk[0]), total: count(lang, rk[1]) }) : '';
+const elect = S.elect[lastI];
+const ufName = UF_NAMES[p.uf];
+const name = `${p.n}`;
+const imputed1996 = p.y.indexOf(1996) >= 0 ? S.gimp[p.y.indexOf(1996)] : null;
+const rebuilt = S.rebuilt.some((x) => x === 1);
+const fewYears = p.y.filter((_, i) => S.fv[i] != null && (S.fv[i] as number) < 300);
+const stateSeries = (states[p.uf] ?? []).map((r) => [r.year, r.mis_wmean]);
+const brSeries = natYears.map((y) => [y.year, y.mis_wmean]);
+const labels = {
+  general: d.common.general, municipal: d.common.municipal, state: ufName, brazil: d.common.brazil,
+  typical: d.common.typical, mis: d.common.mis, vote_share: d.method.share, group_title: d.grupos.title, gabbr: d.grupos.abbr.join('|'), gnames: d.grupos.names.join('|'), left: d.common.left, right: d.common.right, others: d.muni.others, mayor: d.common.mayor, governor: d.common.governor,
+  dalton: d.common.dalton, enep: d.common.enep, maxp: d.muni.maxp, female: d.common.female_share,
+  misF: d.common.mis_female, misM: d.common.mis_male, vote: d.figs.vote, place: d.figs.place, entry: d.figs.entry,
+  provisional: d.common.provisional, loading: d.common.loading, error: d.common.error,
+};
+const cols: [string, string, (v: number | null) => string][] = [
+  ['ideo', d.common.mis, (v) => score(lang, v)],
+  ['dalton', d.common.dalton, (v) => (v == null ? '—' : num(lang, v * 10, 1))],
+  ['enep', d.common.enep, (v) => num(lang, v, 1)],
+  ['fem', d.common.female_share, (v) => pct(lang, v)],
+  ['misF', d.common.mis_female, (v) => score(lang, v)],
+  ['misM', d.common.mis_male, (v) => score(lang, v)],
+  ['ideopref', d.common.mayor, (v) => score(lang, v)],
+  ['elect', d.common.electorate, (v) => (v == null ? '—' : count(lang, v))],
+];
+const csv = ['year,arena,' + cols.map((c) => c[0]).join(','), ...p.y.map((y, i) => [y, isGen(y) ? 'general' : 'municipal', ...cols.map((c) => S[c[0]][i] ?? '')].join(','))].join('\n');
+const figs = [
+  ['trayectoria', fill(d.muni.trajectory_title, { name }), d.muni.trajectory_sub],
+  ['partidos', fill(d.muni.behind_title, { name, year: lastYear }), d.muni.behind_sub],
+  ['ejecutivos', d.muni.executives, d.muni.executives_sub],
+  ['sistema', d.muni.system, d.muni.system_sub],
+  ['genero', fill(d.muni.gender_title, { name }), d.muni.gender_sub],
+  ['contrafactual', fill(d.muni.counterfactual_title, { name }), d.muni.counterfactual_sub],
+];
+---
+<Base lang={lang} title={`${p.n} (${p.uf})`} section="municipalities"
+  description={fill(d.muni.summary, { lastYear, name, mis: score(lang, mis), side, rankText, meanGen: score(lang, meanGen), meanMun: score(lang, meanMun) })}>
+  <p><a href={href(lang, '/municipalities/')}>← {d.muni.back}</a></p>
+  <article class="stack" style="--stack-space: var(--space-l)" data-perfil
+    data-src={asset(`data/m/${p.c}.json`)} data-parties={asset('data/parties_min.json')}
+    data-state={JSON.stringify(stateSeries)} data-brazil={JSON.stringify(brSeries)}
+    data-labels={JSON.stringify(labels)} data-lang={lang} data-title-partidos={d.muni.behind_title.replace('{name}', name)}>
+    <header class="portada" style="align-items: end">
+      <div class="stack" style="--stack-space: var(--space-2xs)">
+        <h1 class="titulo-pagina">{p.n} <span class="mono" style="font-size: var(--font-size-step-2)">{p.uf}</span></h1>
+        <p class="mono">{fill(d.muni.profile_lede, { name: p.n, ufName, region: d.regions[p.rg as keyof typeof d.regions], elect: count(lang, elect ?? 0), year: lastYear })}</p>
+      </div>
+      <div class="stack" style="--stack-space: var(--space-2xs)">
+        <p class="numeral__etiqueta">{d.common.mis} · {lastYear}</p>
+        <p class="numeral">{score(lang, mis)}</p>
+        {lastYear === facts.last.year && <p><span class="sello">{d.common.stamp_provisional}</span></p>}
+      </div>
+    </header>
+    <p class="lede prosa">{fill(d.muni.summary, { lastYear, name, mis: score(lang, mis), side, rankText, meanGen: score(lang, meanGen), meanMun: score(lang, meanMun) })}</p>
+    <ul class="stack recibo__leyenda" role="list" style="--stack-space: var(--space-2xs); padding-inline-start: var(--space-xs)">
+      {rebuilt && <li><span class="sello">TSE</span> {d.muni.rebuilt_note}</li>}
+      {imputed1996 != null && imputed1996 > 0 && <li><span class="sello">{d.common.stamp_imputed}</span>&nbsp; {fill(d.muni.imputed_note, { share: pct(lang, imputed1996) })}</li>}
+      {fewYears.length > 0 && <li><span class="marca-trama"></span> {fill(d.muni.few_votes_note, { n: 300 })} ({fewYears.join(', ')})</li>}
+    </ul>
+    {figs.map(([id, title, sub]) => (
+      <section class="figura" id={`f-${id}`} data-figura-cliente={id} aria-labelledby={`f-${id}-t`}>
+        <h2 id={`f-${id}-t`} class="figura__titulo">{title}</h2>
+        <p class="figura__subtitulo">{sub}</p>
+        {id === 'contrafactual' && <p class="figura__aviso"><span class="sello">{d.common.stamp_experimental}</span><span>{d.figure.pending}</span></p>}
+        {id === 'trayectoria' && (
+          <div class="segmentado" role="group" aria-label={d.common.arena} data-arena-filtro>
+            <button type="button" class="boton" data-arena="general" aria-pressed="true">{d.common.general_long}</button>
+            <button type="button" class="boton" data-arena="municipal" aria-pressed="false">{d.common.municipal_long}</button>
+          </div>
+        )}
+        {id === 'partidos' && (
+          <div class="riel" role="group" aria-label={d.common.year} data-anos-partidos>
+            {[[d.common.general_code, d.common.general_long, p.y.filter(isGen)], [d.common.municipal_code, d.common.municipal_long, p.y.filter((y) => !isGen(y))]].map(([code, long, ys]) => (
+              <div class="riel__fila"><abbr title={long as string}>{code}</abbr>{(ys as number[]).map((y) => <button type="button" data-ano={y} aria-pressed={String(y === lastYear)}>{y}</button>)}</div>
+            ))}
+          </div>
+        )}
+        <div class="figura__marcas" data-leyenda></div>
+        <div data-navegable data-grafico><p class="recibo__leyenda">{d.common.loading}</p></div>
+      </section>
+    ))}
+    <section class="figura" aria-labelledby="f-datos-t">
+      <h2 id="f-datos-t" class="figura__titulo">{fill(d.muni.data_title, { name })}</h2>
+      <div class="tabla-larga" tabindex="0" role="region" aria-label={d.common.table}>
+        <table>
+          <thead><tr><th scope="col">{d.common.year}</th><th scope="col">{d.common.arena}</th>{cols.map((c) => <th scope="col" data-cifra>{c[1]}</th>)}</tr></thead>
+          <tbody>
+            {p.y.map((y, i) => (
+              <tr><th scope="row">{y}{y === facts.last.year ? '*' : ''}</th><td>{isGen(y) ? d.common.general_code : d.common.municipal_code}</td>
+                {cols.map((c) => <td data-cifra>{c[2](S[c[0]][i] as number | null)}</td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p><a class="boton" download={`mis_${p.c}.csv`} href={`data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`}>{d.muni.download}</a></p>
+      <p class="figura__fuente">{d.common.source}: {d.common.source_text}</p>
+    </section>
+  </article>
+</Base>
+<script>
+  import '../scripts/perfil';
+</script>

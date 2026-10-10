@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba del kit · maestro-diseno-web</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="Página de prueba de las piezas del kit: tokens, base, movimiento, isla y bus de feedback.">
+<!-- en producción, el contenido de tokens/dist/preferencias.inline.js va EN LÍNEA; aquí se carga
+     como script clásico síncrono, que también corre antes del primer pintado -->
+<script src="../tokens/dist/preferencias.inline.js"></script>
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="../movimiento.css">
+<link rel="stylesheet" href="./demo.css">
+<script type="module" src="./demo.js"></script>
+</head>
+<body>
+<a class="salto" href="#principal">Saltar al contenido</a>
+<header class="center">
+  <nav aria-label="Preferencias" class="cluster">
+    <button type="button" id="tema" class="boton">Tema: sistema</button>
+    <button type="button" id="sonido" class="boton" aria-pressed="false">Sonido</button>
+  </nav>
+</header>
+<main id="principal" class="center stack">
+  <h1>Página de prueba del kit</h1>
+  <p>Esta página ejercita las piezas del kit a la vez: los tokens en los dos temas, la base, las utilidades de movimiento, una isla con ciclo de vida y el bus de <i lang="en">feedback</i>. Sin JavaScript se lee entera.</p>
+
+  <section class="stack" aria-labelledby="t-feedback">
+    <h2 id="t-feedback">Bus de feedback</h2>
+    <p>Cada botón dispara imagen y aviso accesible en el mismo gesto; el sonido solo suena si lo activas arriba.</p>
+    <div class="cluster">
+      <button type="button" id="guardar" class="boton boton--solido pulsable">Guardar cambios</button>
+      <button type="button" id="fallar" class="boton pulsable">Simular un error</button>
+    </div>
+  </section>
+
+  <section class="stack" aria-labelledby="t-form">
+    <h2 id="t-form">Formulario</h2>
+    <form class="stack" id="formulario" novalidate>
+      <label for="correo">Correo electrónico</label>
+      <input id="correo" name="correo" type="email" autocomplete="email" required aria-describedby="correo-ayuda">
+      <small id="correo-ayuda">Solo para avisarte de cambios. <q>Nunca</q> lo compartimos.</small>
+      <button type="submit" class="boton">Enviar</button>
+    </form>
+  </section>
+
+  <section class="stack" aria-labelledby="t-nota">
+    <h2 id="t-nota">Nota emergente</h2>
+    <button type="button" class="boton" popovertarget="nota">Ver la nota</button>
+    <div id="nota" popover class="nota">
+      <p>Popover nativo con entrada por <code>@starting-style</code>. Esc la cierra.</p>
+    </div>
+  </section>
+
+  <section class="relleno stack" aria-labelledby="t-relleno">
+    <h2 id="t-relleno">Más abajo, la isla</h2>
+    <p class="revela">La isla de abajo no se carga hasta que se acerca al viewport, se pausa al salir y se destruye sin fugas.</p>
+  </section>
+
+  <section class="stack" aria-labelledby="t-isla">
+    <h2 id="t-isla">Isla con canvas</h2>
+    <maestro-isla pieza="ejemplo" id="isla">
+      <figure class="stack">
+        <table>
+          <caption>Tokens que lee el canvas</caption>
+          <thead><tr><th scope="col">Token</th><th scope="col">Uso</th></tr></thead>
+          <tbody>
+            <tr><td><code>--color-accent-solid</code></td><td>Puntos</td></tr>
+            <tr><td><code>--color-border-subtle</code></td><td>Línea base</td></tr>
+            <tr><td><code>--canvas-dpr-max</code></td><td>Resolución máxima</td></tr>
+          </tbody>
+        </table>
+        <figcaption>La tabla es el contenido; el canvas, que la isla añade encima, es decoración.</figcaption>
+      </figure>
+    </maestro-isla>
+  </section>
+</main>
+</body>
+</html>

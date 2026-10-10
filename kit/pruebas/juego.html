@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba de las plantillas de juego · maestro-diseno-web</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="Monta la plantilla de isla de un motor (?motor=phaser|pixi|three|p5) para probar su ciclo de vida.">
+<!-- en un proyecto con npm, el bundler resuelve estos nombres; aquí, un import map a jsDelivr con versión fijada.
+     Pixi y p5, con su ESM de un solo fichero: el +esm de jsDelivr parte los import() internos de
+     Pixi (la segunda copia del registro de extensiones deja al renderer sin la tubería de Graphics)
+     y el de p5 importa sus dependencias con rutas /npm/… que WebKit resuelve contra la página. -->
+<script type="importmap">
+{ "imports": {
+  "phaser": "https://cdn.jsdelivr.net/npm/phaser@4.2.1/+esm",
+  "pixi.js": "https://cdn.jsdelivr.net/npm/pixi.js@8.21.0/dist/pixi.min.mjs",
+  "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/+esm",
+  "p5": "https://cdn.jsdelivr.net/npm/p5@2.3.3/lib/p5.esm.min.js",
+  "idb-keyval": "https://cdn.jsdelivr.net/npm/idb-keyval@6.3.0/+esm"
+} }
+</script>
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./demo.css">
+<style>
+  @layer components {
+    .juego [data-lienzo] { inline-size: 100%; block-size: 12rem; background: var(--color-bg-surface); border-radius: var(--radius-md); }
+    .juego [data-lienzo] canvas { display: block; inline-size: 100%; block-size: 100%; }
+  }
+</style>
+<script type="module">
+  import { registrar } from '../isla.js';
+  const motor = new URLSearchParams(location.search).get('motor');
+  if (motor) {
+    registrar('juego', () => import(`../juego/pieza-${motor}.js`));
+    const isla = document.createElement('maestro-isla');
+    isla.setAttribute('pieza', 'juego');
+    isla.setAttribute('pausa-sin-foco', '');
+    isla.className = 'juego stack';
+    isla.id = 'isla';
+    isla.innerHTML = `<div data-lienzo></div><p>Plantilla de <b>${motor}</b>: el canvas es decoración; las instrucciones y los controles van en HTML.</p>`;
+    document.getElementById('sitio').append(isla);
+  }
+  // utilidades para la prueba de acciones y guardado
+  window.__utiles = Promise.all([import('../juego/acciones.js'), import('../juego/guardado.js'), import('../feedback.js')]);
+</script>
+</head>
+<body>
+<main id="principal" class="center stack">
+  <h1>Plantillas de juego</h1>
+  <div id="sitio"></div>
+  <section class="relleno stack" aria-labelledby="t-relleno">
+    <h2 id="t-relleno">Relleno</h2>
+    <p>Permite sacar la isla de la pantalla para comprobar que se pausa.</p>
+  </section>
+  <p><label for="campo">Campo de texto</label> <input id="campo" type="text"></p>
+</main>
+</body>
+</html>

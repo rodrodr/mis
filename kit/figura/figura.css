@@ -1,0 +1,44 @@
+/* figura.css · anatomía de figura de datos (OWID: título que es la respuesta, subtítulo con la
+   pregunta y la unidad, vistas Gráfico · Tabla · Datos, fuente y fecha, notas). Solo tokens; capa
+   components; especificidad ≤ (0,1,0). Va con base.css. */
+@layer components {
+  .figura { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .figura__titulo { font-size: var(--font-size-step-2); text-wrap: balance; }
+  .figura__subtitulo { color: var(--color-text-secondary); }
+  .figura__indice { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .figura__vista + .figura__vista { margin-block-start: var(--space-m); }   /* sin JS: apiladas */
+
+  /* pestañas (vistas.js) */
+  .figura__pestanas { display: flex; flex-wrap: wrap; gap: var(--space-3xs); border-block-end: var(--border-width-hairline) solid var(--color-border-subtle); }
+  .figura__pestanas :where([role="tab"]) {
+    background: none; border: 0; border-block-end: var(--border-width-focus) solid transparent;
+    padding: var(--space-2xs) var(--space-xs); min-block-size: var(--size-target); color: var(--color-text-secondary);
+  }
+  .figura__pestanas :where([role="tab"][aria-selected="true"]) { color: var(--color-text-primary); border-block-end-color: var(--color-accent-solid); }
+
+  /* el SVG del build: la familia la ponen los tokens; las marcas enfocables se ven al enfocarlas */
+  .figura :where(svg) { inline-size: 100%; block-size: auto; font-family: var(--font-family-body); overflow: visible; }
+  .figura :where([data-punto]:focus) { outline: none; }
+  .figura :where([data-punto]:focus-visible) { stroke: var(--color-focus-ring); stroke-width: var(--border-width-focus-mark); paint-order: stroke; }
+  @media (forced-colors: active) {
+    .figura :where([data-punto]:focus-visible) { stroke: Highlight; }
+  }
+
+  /* nota (navegar.js): con hover y con foco, recorrible, sin caducar (tooltips) */
+  .figura__nota {
+    position: absolute; z-index: 2; max-inline-size: var(--size-note);
+    padding: var(--space-3xs) var(--space-2xs); border-radius: var(--radius-sm);
+    background: var(--color-bg-inverse); color: var(--color-text-inverse);
+    font-size: var(--font-size-step-minus-1); font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .figura :where(table) { inline-size: 100%; }
+  .figura :where(th, td) { text-align: start; padding: var(--space-3xs) var(--space-xs); border-block-end: var(--border-width-hairline) solid var(--color-border-subtle); }
+  .figura :where(td[data-cifra], th[data-cifra]) { text-align: end; }
+  .figura :where(button:not([role="tab"])) { min-block-size: var(--size-target); padding-inline: var(--space-s); }
+  .figura__fuente { font-size: var(--font-size-step-minus-1); color: var(--color-text-secondary); }
+
+  /* demostración de flip.js: la misma rejilla en dos órdenes */
+  .figura__celdas { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--size-cell-min), 1fr)); gap: var(--space-3xs); padding: 0; }
+  .figura__celdas > :where(li) { list-style: none; padding: var(--space-3xs) var(--space-2xs); border-radius: var(--radius-sm); background: var(--color-bg-surface); font-variant-numeric: tabular-nums; }
+}

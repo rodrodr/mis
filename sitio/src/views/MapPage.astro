@@ -1,0 +1,134 @@
+---
+// Map explorer. Figure-first: the map fills the viewport below the header and carries its own
+// context (measure, year, arena, provisional stamp, legend) printed on the frame, so a reader —
+// or a screenshot — never sees the map without knowing what and when it shows. Controls live in
+// a side panel (desktop) or scroll under a sticky map (mobile).
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n';
+import { fill, type Lang } from '../lib/format';
+import { href, asset } from '../lib/paths';
+import { general, municipal, moran, facts, UF_NAMES } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const FEW = 300;
+const labels = {
+  loading: d.common.loading, error: d.common.error, missing: d.common.missing, moran: d.map.moran,
+  lisa_hh: d.map.lisa_hh, lisa_ll: d.map.lisa_ll, lisa_hl: d.map.lisa_hl, lisa_lh: d.map.lisa_lh, lisa_ns: d.map.lisa_ns,
+  rank_text: d.map.rank_text, table_title: d.map.table_title, histogram: d.map.histogram, play: d.map.play, pause: d.map.pause,
+  change_note: d.map.change_note, general_long: d.common.general_long, municipal_long: d.common.municipal_long,
+  var_ideo: d.map.var_ideo, var_dalton: d.map.var_dalton, var_enep: d.map.var_enep, var_fem: d.map.var_fem,
+  var_gap: d.map.var_gap, var_ideopref: d.map.var_ideopref, mode_lisa: d.map.mode_lisa, scale_rel: d.map.scale_rel,
+  change_title: d.map.change_title, agg_ri: d.map.agg_ri, agg_uf: d.map.agg_uf, left: d.common.left, right: d.common.right,
+};
+const moranByYear = Object.fromEntries(moran.map((m) => [m.year, m.I]));
+const rails: [string, string, number[]][] = [
+  [d.common.general_code, d.common.general_long, general.map((y) => y.year)],
+  [d.common.municipal_code, d.common.municipal_long, municipal.map((y) => y.year)],
+];
+const Y = facts.last.year;
+---
+<Base lang={lang} title={d.map.title} section="map">
+  <div class="explorador" data-explorador data-base={asset('').replace(/\/$/, '')} data-lang={lang}
+    data-profile={href(lang, '/municipalities/')} data-year={Y} data-few={FEW}
+    data-labels={JSON.stringify(labels)} data-moran={JSON.stringify(moranByYear)}>
+    <div class="explorador__mapa">
+      <div class="lienzo" data-lienzo aria-label={d.map.keyboard_hint}>
+        <noscript><p class="mapa__noscript">{d.map.noscript}</p></noscript>
+      </div>
+      <div class="mapa__lateral">
+      <div class="mapa__rotulo" aria-live="polite" aria-atomic="true">
+        <p class="mapa__medida" data-r-medida>{d.map.var_ideo}</p>
+        <p class="mapa__ano" data-r-ano>{Y}</p>
+        <p class="mapa__arena" data-r-arena>{d.common.general_long}</p>
+        <p data-provisional><span class="sello">{d.common.stamp_provisional}</span></p>
+      </div>
+      <div class="mapa__leyenda">
+        <ul class="leyenda leyenda--mapa" data-leyenda role="list"></ul>
+        <p data-few hidden class="mapa__nota"><span class="marca-trama"></span> {fill(d.map.few_votes_note, { n: FEW })}</p>
+      </div>
+      </div>
+      <div class="mapa__zoom" role="group" aria-label="Zoom">
+        <button type="button" class="boton" data-zoom-mas aria-label={d.map.zoom_in}>+</button>
+        <button type="button" class="boton" data-zoom-menos aria-label={d.map.zoom_out}>−</button>
+        <button type="button" class="boton" data-zoom-reset aria-label={d.map.zoom_reset}>⟲</button>
+      </div>
+    </div>
+
+    <aside class="panel" aria-label={d.map.controls}>
+      <h1 class="panel__titulo">{d.map.title}</h1>
+      <div class="control riel" role="group" aria-label={d.map.year}>
+        <span>{d.map.year}</span>
+        {rails.map(([code, long, ys]) => (
+          <div class="riel__fila"><abbr title={long}>{code}</abbr>{ys.map((y) => <button type="button" data-ano={y} aria-pressed={String(y === Y)}>{y}</button>)}</div>
+        ))}
+        <button type="button" class="boton boton--play" data-play aria-pressed="false"><span aria-hidden="true" class="icono">▶</span> <span data-play-texto>{d.map.play}</span></button>
+        <p class="recibo__leyenda">{d.map.play_note}</p>
+      </div>
+      <label class="control"><span>{d.map.measure}</span>
+        <select data-var>
+          <option value="ideo">{d.map.var_ideo}</option>
+          <option value="dalton">{d.map.var_dalton}</option>
+          <option value="enep">{d.map.var_enep}</option>
+          <option value="fem">{d.map.var_fem}</option>
+          <option value="gap">{d.map.var_gap}</option>
+          <option value="ideopref">{d.map.var_ideopref}</option>
+        </select>
+      </label>
+      <label class="control"><span>{d.map.mode}</span>
+        <select data-modo>
+          <option value="level">{d.map.mode_level}</option>
+          <option value="change">{d.map.mode_change}</option>
+          <option value="lisa">{d.map.mode_lisa}</option>
+        </select>
+      </label>
+      <label class="control"><span>{d.map.scale}</span>
+        <select data-escala>
+          <option value="abs">{d.map.scale_abs}</option>
+          <option value="rel">{d.map.scale_rel}</option>
+        </select>
+      </label>
+      <label class="control" data-agg-grupo hidden><span>{d.map.gender_agg}</span>
+        <select data-agg>
+          <option value="muni">{d.map.agg_muni}</option>
+          <option value="ri">{d.map.agg_ri}</option>
+          <option value="uf">{d.map.agg_uf}</option>
+        </select>
+      </label>
+      <label class="control cluster" data-fdr-grupo hidden><input type="checkbox" data-fdr /> <span>{d.map.lisa_fdr}</span></label>
+      <div data-ficha hidden class="ficha-mini stack" style="--stack-space: var(--space-2xs)">
+        <h2 data-f-nombre></h2>
+        <p class="numeral" style="font-size: var(--font-size-step-3)" data-f-valor></p>
+        <p data-f-rango></p>
+        <p><a class="boton" data-f-enlace href="#">{d.common.open_profile} →</a></p>
+      </div>
+      <div data-hist-bloque>
+        <h2 class="panel__sub">{d.map.histogram}</h2>
+        <div data-histograma></div>
+      </div>
+      <p data-nota-cambio class="recibo__leyenda"></p>
+      <p data-moran hidden class="recibo__leyenda"></p>
+      <p data-lisa-nota hidden class="recibo__leyenda">{d.map.lisa_note}</p>
+      <p class="recibo__leyenda" data-estado role="status"></p>
+      <p class="recibo__leyenda">{d.map.keyboard_hint}</p>
+    </aside>
+  </div>
+
+  <section class="seccion stack" data-tabla style="margin-block-start: var(--space-xl)">
+    <p class="lede">{d.map.lede}</p>
+    <h2 data-tabla-titulo>{fill(d.map.table_title, { year: Y })}</h2>
+    <label class="control" style="max-inline-size: 20rem"><span>{d.map.table_filter}</span>
+      <select data-uf>{Object.entries(UF_NAMES).map(([k, v]) => <option value={k}>{v}</option>)}</select>
+    </label>
+    <div class="tabla-larga" tabindex="0" role="region" aria-label={d.common.table}>
+      <table>
+        <thead><tr><th scope="col">{d.nav.municipalities}</th><th scope="col" data-cifra>{d.common.value}</th><th scope="col" data-cifra>{d.map.rank}</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+<script>
+  import '../scripts/map-app';
+</script>

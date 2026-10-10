@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regresión de verificar.py · panel en vivo con sondeo</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="Panel que consulta el servidor cada 300 ms: la red nunca queda en calma.">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<main id="principal" class="center stack">
+  <h1>Panel en vivo</h1>
+  <p>Este panel consulta el servidor cada 300 milisegundos, como un tablero que se actualiza solo. La red nunca queda en calma, así que esperar a <code>networkidle</code> no termina nunca. La puerta tiene que seguir adelante con lo cargado y decirlo en una nota, sin reventar.</p>
+  <p>Actualizado: <output id="hora">todavía no</output>.</p>
+</main>
+<script type="module">
+  const hora = document.getElementById('hora');
+  setInterval(async () => {
+    try { await fetch('./demo.css', { cache: 'no-store' }); hora.textContent = new Date().toLocaleTimeString('es-ES'); } catch {}
+  }, 300);
+</script>
+</body>
+</html>

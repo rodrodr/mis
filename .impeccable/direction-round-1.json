@@ -1,0 +1,126 @@
+{
+  "title": "Elige el mundo visual del sitio MIS",
+  "question": "La tirada asignó «Boletim de Urna». Quédatelo, toma una alternativa o vuelve a tirar.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Boletim de Urna",
+      "kicker": "THE ROLL",
+      "lineage": "El boletín que cada urna electrónica imprime al cierre y se fija en la puerta del colegio",
+      "thesis": "Cada cifra impresa como el recibo del voto, sumado municipio a municipio.",
+      "palette": ["#F2F3F0", "#1E1F22", "#6B6E73", "#C8323C", "#2A4D9B"],
+      "materials": ["papel térmico en rollo", "impresión monoespaciada", "bordes perforados de corte", "papel carbón azul", "sello de goma «PROVISÓRIO»"],
+      "viewport": "Un recibo alto para Brasil: cabecera «MIS · 1994–2026 · 5.571 municípios» y las 17 elecciones impresas como líneas sucesivas, cada una con la media nacional como un punto sobre la escala −1…+1, generales y municipales en dos columnas. Al lado, el mapa del año impreso a dos tintas (rojo izquierda, azul carbón derecha).",
+      "risk": "El monoespaciado en todo puede volverse frío y cansar en la prosa larga de la metodología; necesita una letra de lectura acompañante.",
+      "raised": [
+        {"from": "challenger-bench", "raise": "El estado es una marca, no un tono: el color queda reservado a la ideología, y la selección, lo provisional, lo imputado y los pocos votos se marcan con perforaciones, sellos, tramas y líneas de corte."},
+        {"from": "challenger-sampler", "raise": "Las 17 elecciones se recolocan como filas impresas enteras, en orden cronológico de arriba abajo, nunca como una rejilla que se reordena."},
+        {"from": "challenger-storm", "raise": "Un numeral monumental por sección: la cifra que responde a la pregunta, impresa a escala de cabecera de recibo."},
+        {"from": "challenger-zine", "raise": "Cada explicación marca la única línea que importa, como un visto de bolígrafo sobre el recibo."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Atlas Nacional",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Láminas temáticas del Atlas Nacional do Brasil (IBGE) y los atlas escolares",
+      "thesis": "Brasil leído como una lámina de atlas temático: mapa, leyenda y nota técnica.",
+      "palette": ["#FBFBF8", "#22303C", "#B4423A", "#E9C9B4", "#B9C9DC", "#2F5D8C"],
+      "materials": ["láminas cartográficas con marco", "tramas y rayados", "cajas de leyenda", "retícula de coordenadas"],
+      "viewport": "Una lámina a sangre: el mapa municipal del año ocupa dos tercios, la leyenda divergente y la nota técnica en una caja enmarcada, y el título de la lámina con su número de serie.",
+      "risk": "Es la dirección en la que acaban la mayoría de los sitios de datos con mapa: eficaz y familiar, poco distintiva."
+    },
+    {
+      "id": "challenger-ribbon",
+      "label": "Cinta de procedencia",
+      "verdict": "competitive",
+      "lineage": "Cintas de procedencia en la curaduría de museos",
+      "thesis": "La trayectoria de cada municipio como una cinta continua a través de 17 elecciones, con huecos y tramos inferidos.",
+      "palette": ["#EFE7D8", "#B3202A", "#8C8C8C", "#2B2B2B"],
+      "materials": ["cinta de seda roja", "hilo gris sin tejer en los huecos", "sellos de tinta desvaída"],
+      "viewport": "La cinta de Brasil desciende por la página. Cada pliegue es una elección, la cinta se desplaza a izquierda o derecha según el MIS, y los tramos imputados o provisionales van en trazo fino.",
+      "case": "Se fusiona bien en la ficha: lo conocido, lo imputado y lo provisional caben en su gramática. Pierde en identificación del público (no reconocen el mundo museístico).",
+      "risk": "Narrativa en la ficha, pero el mapa y el explorador quedan fuera de su gramática.",
+      "hero": "https://impeccable.style/worlds/cards/exhibition-museum-curation-provenance-ribbon-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/exhibition-museum-curation-provenance-ribbon.webp"
+    },
+    {
+      "id": "challenger-bench",
+      "label": "Banco de montaje",
+      "verdict": "competitive",
+      "lineage": "Mesa de corte de película con raíl perforado",
+      "thesis": "Las 17 elecciones como fotogramas en un raíl perforado; el año se elige deslizando y encaja en cada elección.",
+      "palette": ["#0D0D0D", "#E8742A", "#F5F5F2"],
+      "materials": ["raíl perforado", "grano de película", "banderita de cinta donde lo dejaste"],
+      "viewport": "Un raíl fijo cruza la pantalla con 17 fotogramas: generales arriba y municipales abajo. El mapa del fotograma activo llena la ventana blanca perforada.",
+      "case": "Se fusiona bien en el mapa: el deslizador temporal y la memoria de «dónde lo dejaste» son de verdad útiles. Pierde en identificación (oficio de cine).",
+      "risk": "El naranja dominante compite con la escala ideológica roja/azul.",
+      "hero": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail.webp"
+    },
+    {
+      "id": "challenger-storm",
+      "label": "Tormenta de letras",
+      "verdict": "declined",
+      "lineage": "Mundos surrealistas tipográficos",
+      "thesis": "Las palabras se condensan en clima y paisaje.",
+      "palette": ["#FFFFFF", "#111111", "#B8BCC2"],
+      "materials": ["grotesca monumental", "partículas tipográficas"],
+      "viewport": "Una palabra monumental que se deshace en lluvia.",
+      "case": "Pierde en los dos ejes: oculta las cifras bajo la metáfora.",
+      "kept": "Compromiso con un único numeral monumental por sección.",
+      "risk": "Ilegible para datos."
+    },
+    {
+      "id": "challenger-raygun",
+      "label": "Mesa de maquetación Ray Gun",
+      "verdict": "declined",
+      "lineage": "Revistas de música de los noventa",
+      "thesis": "Columnas que chocan y el ojo entra por el fragmento más ruidoso.",
+      "palette": ["#EDE6D6", "#141414", "#FF3B1F"],
+      "materials": ["sobreimpresión", "grotescas maltratadas"],
+      "viewport": "Titulares superpuestos sobre una foto.",
+      "case": "Pierde en los dos ejes: sacrifica precisión y confianza académica.",
+      "kept": "Cada sección abre con su fragmento más fuerte.",
+      "risk": "Incompatible con la lectura de cifras."
+    },
+    {
+      "id": "challenger-sampler",
+      "label": "Dechado bordado",
+      "verdict": "declined",
+      "lineage": "Dechados de bordado escolar",
+      "thesis": "Franjas cronológicas que se aflojan a medida que avanza la obra.",
+      "palette": ["#E4DCC8", "#8E2B25", "#2E3F6E", "#3C6B4A"],
+      "materials": ["seda sobre lino", "franjas apiladas"],
+      "viewport": "Franjas de motivos en orden de dificultad.",
+      "case": "Pierde en los dos ejes: el tejido no comunica escala ni geografía.",
+      "kept": "Las 17 elecciones como filas enteras y cronológicas.",
+      "risk": "Artesanal y ajeno al tema."
+    },
+    {
+      "id": "challenger-zine",
+      "label": "Fanzine explicativo",
+      "verdict": "declined",
+      "lineage": "Fanzines técnicos dibujados a mano",
+      "thesis": "Explicar el método como lo haría un amigo en una servilleta.",
+      "palette": ["#F7F3E8", "#111111", "#FFE14D", "#FF7AB6"],
+      "materials": ["rotulador", "flechas dibujadas"],
+      "viewport": "Viñetas numeradas con mascota.",
+      "case": "Pierde en identificación del público investigador; en claridad empata solo en la metodología.",
+      "kept": "Resaltar la única línea que importa en cada explicación.",
+      "risk": "Infantiliza un producto académico."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "label": "El estándar de la categoría",
+    "thesis": "Un observatorio de datos limpio: mapa, paneles y fichas, ejecutado con el máximo oficio.",
+    "palette": ["#FFFFFF", "#111827", "#64748B", "#B91C1C", "#1D4ED8"],
+    "materials": ["rejilla limpia", "tarjetas de indicadores", "mapa a pantalla completa"],
+    "viewport": "Cabecera con el título y una cifra clave; debajo, el mapa interactivo con su selector de año.",
+    "risk": "Indistinguible de cualquier otro portal de datos, por diseño."
+  },
+  "steer": true
+}

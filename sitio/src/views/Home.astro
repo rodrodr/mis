@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro';
+import Receipt from '../components/Receipt.astro';
+import Figure from '../components/Figure.astro';
+import Search from '../components/Search.astro';
+import Ramp from '../components/Ramp.astro';
+import { t } from '../i18n';
+import { score, pct, fill, count, type Lang } from '../lib/format';
+import { href, asset } from '../lib/paths';
+import { national, facts, years, counterfactual, states, general, municipal, UF_NAMES } from '../lib/data';
+import { e1, e2, e3, e4, e7 } from '../lib/figs';
+import { slope } from '../scripts/mini';
+import { statePoster } from '../lib/poster';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const L = facts.last;
+const sc = (v: number) => score(lang, v);
+const sd = [...years].sort((a, b) => a.mis_sd - b.mis_sd);
+const pair = counterfactual.national.filter((r) => r.arena === 'general').at(-1)!;
+const up = facts.movers[0], down = facts.movers[facts.movers.length - 1];
+const vars = {
+  genMin: sc(facts.genMin.mis_mean), genMinYear: facts.genMin.year, last: sc(L.mis_mean), lastYear: L.year,
+  genMax: sc(facts.genMax.mis_mean), genMaxYear: facts.genMax.year, munFirst: sc(facts.munFirst.mis_mean), munFirstYear: facts.munFirst.year,
+  munRebound: sc(facts.munRebound.mis_mean), munReboundYear: facts.munRebound.year,
+  munMin: sc(facts.munMin.mis_mean), munMinYear: facts.munMin.year, munMax: sc(facts.munMax.mis_mean), munMaxYear: facts.munMax.year,
+  munLast: sc(facts.munLast.mis_mean), munLastYear: facts.munLast.year,
+  bigGap: score(lang, facts.bigGap.mis_mean - facts.bigGap.mis_wmean), bigGapYear: facts.bigGap.year,
+  sdMin: score(lang, sd[0].mis_sd).replace('+', ''), sdMinYear: sd[0].year, sdMax: score(lang, sd.at(-1)!.mis_sd).replace('+', ''), sdMaxYear: sd.at(-1)!.year,
+  leftMax: pct(lang, facts.leftMax.share_left), leftMaxYear: facts.leftMax.year, leftMin: pct(lang, facts.leftMin.share_left), leftMinYear: facts.leftMin.year,
+  leftLast: pct(lang, L.share_left),
+  upUf: UF_NAMES[up.uf], upD: score(lang, up.d), downUf: UF_NAMES[down.uf], downD: score(lang, down.d),
+  fromYear: pair.from, toYear: pair.to, vote: sc(pair.vote_mean), place: sc(pair.place_mean), entry: sc(pair.entry_mean),
+};
+const f1 = e1(lang), f2 = e2(lang), f3 = e3(lang, national.hist_bins), f4 = e4(lang), f7 = e7(lang);
+const e6rows = Object.entries(states).map(([uf, r]) => {
+  const a = r.find((x) => x.year === 2010)?.mis_wmean ?? null, b = r.find((x) => x.year === L.year)?.mis_wmean ?? null;
+  return { uf, name: UF_NAMES[uf], a, b, d: a != null && b != null ? b - a : null };
+}).sort((p, q) => (q.d ?? 0) - (p.d ?? 0));
+const f6 = slope(e6rows.map((r) => ({ key: r.uf, name: r.name, a: r.a, b: r.b })), { ya: '2010', yb: String(L.year), label: d.figs.e6_sub, fmt: (v) => score(lang, v, 2), w: 1100, h: 560 });
+const yr = { key: 'year', label: d.common.year };
+const ar = { key: 'arena', label: d.common.arena };
+const poster = statePoster(L.year, (uf, v) => `${UF_NAMES[uf]}: ${score(lang, v)}`);
+const steps = [
+  [d.home.step1_title, d.home.step1], [d.home.step2_title, d.home.step2], [d.home.step3_title, d.home.step3],
+  [d.home.step4_title, d.home.step4], [d.home.step6_title, d.home.step6],
+];
+---
+<Base lang={lang} section="home">
+  <div class="portada">
+    <Receipt lang={lang} />
+    <div class="portada__derecha">
+      <div class="portada__cifra stack" style="--stack-space: var(--space-m)">
+      <div class="stack" style="--stack-space: var(--space-2xs)">
+        <p class="numeral__etiqueta">{fill(d.home.big_label, { year: L.year })}</p>
+        <p class="numeral" data-cifras>{sc(L.mis_mean)}</p>
+        <p class="cluster"><span class="sello" title={d.common.provisional}>{d.common.stamp_provisional}</span>
+          <span>{fill(d.home.big_sub, { wmean: sc(L.mis_wmean) })}</span></p>
+      </div>
+      <Search lang={lang} id="buscar-portada" />
+      </div>
+      <h1 class="visualmente-oculto">{d.meta.name}: {d.meta.tagline}</h1>
+      <figure class="portada__mapa stack" style="--stack-space: var(--space-2xs)">
+        <figcaption>
+          <strong>{fill(d.home.map_title, { year: L.year })}</strong><br />
+          <span class="recibo__leyenda">{d.home.map_sub}</span>
+        </figcaption>
+        <Ramp kind="div" lo={`${score(lang, -0.5, 1)} ${d.common.left}`} mid="0" hi={`${d.common.right} ${score(lang, 0.5, 1)}`} />
+        <div class="lienzo" data-mini-mapa data-base={asset('').replace(/\/$/, '')} data-year={L.year}
+          data-profile={href(lang, '/municipalities/')} data-lang={lang}>
+          <svg class="poster" viewBox={`0 0 ${poster.size} ${poster.size}`} role="img" aria-label={`${fill(d.home.map_title, { year: L.year })}. ${d.home.map_poster_note}`}>
+            {poster.shapes.map((s: any) => <path d={s.d} fill={s.fill} stroke="var(--color-fig-ink)" stroke-width="0.8"><title>{s.label}</title></path>)}
+          </svg>
+        </div>
+        <p class="recibo__leyenda" data-mini-nota>{d.home.map_poster_note}</p>
+        <p><a class="boton" href={href(lang, `/map/?year=${L.year}`)}>{d.home.map_link} →</a></p>
+      </figure>
+    </div>
+  </div>
+
+  <hr class="perforado" />
+  <p class="lede prosa">{fill(d.home.intro, { n: count(lang, facts.municipalities) })}</p>
+
+  <section class="relato" aria-label={d.home.read_story} data-relato>
+    <div class="relato__figura">
+      <div data-estado="1"><Figure lang={lang} id="e1" title={fill(d.figs.e1_title, { munReboundYear: facts.munRebound.year })} subtitle={d.figs.e1_sub} svg={f1.svg} rows={f1.rows}
+        columns={[yr, ar, { key: 'mis', label: d.common.mis, num: true, fmt: (v) => score(lang, v as number) }, { key: 'president', label: d.common.president }]}>
+        <ul slot="legend" class="leyenda" role="list"><li>● — {d.common.general_long}</li><li>○ - - {d.common.municipal_long}</li></ul>
+      </Figure></div>
+      <div data-estado="2"><Figure lang={lang} id="e2" title={d.figs.e2_title} subtitle={d.figs.e2_sub} svg={f2.svg} rows={years.map((y) => ({ year: y.year, arena: y.arena === 'general' ? d.common.general : d.common.municipal, typ: y.mis_mean, el: y.mis_wmean }))}
+        columns={[yr, ar, { key: 'typ', label: d.common.typical, num: true, fmt: (v) => score(lang, v as number) }, { key: 'el', label: d.common.electorate, num: true, fmt: (v) => score(lang, v as number) }]}>
+        <ul slot="legend" class="leyenda" role="list"><li>● {d.common.typical}</li><li>○ {d.common.electorate}</li></ul>
+      </Figure></div>
+      <div data-estado="3"><Figure lang={lang} id="e3" title={d.figs.e3_title} subtitle={d.figs.e3_sub} svg={f3.svg} rows={f3.rows}
+        columns={[yr, ar, { key: 'sd', label: 'SD', num: true, fmt: (v) => score(lang, v as number).replace('+', '') }, { key: 'p10', label: 'P10', num: true, fmt: (v) => score(lang, v as number) }, { key: 'p50', label: 'P50', num: true, fmt: (v) => score(lang, v as number) }, { key: 'p90', label: 'P90', num: true, fmt: (v) => score(lang, v as number) }]} /></div>
+      <div data-estado="4"><Figure lang={lang} id="e4" title={fill(d.figs.e4_title, { leftMaxYear: facts.leftMax.year, munLastYear: facts.munLast.year })} subtitle={d.figs.e4_sub} svg={f4.svg} rows={f4.rows}
+        columns={[yr, ar, ...f4.bands.map((b) => ({ key: b, label: b, num: true, fmt: (v: unknown) => pct(lang, v as number) }))]}>
+        <ul slot="legend" class="leyenda" role="list">{f4.bands.map((b, i) => <li><span class="leyenda__muestra" style={`background:${f4.fills[i]}`}></span>{b}</li>)}</ul>
+      </Figure></div>
+      <div data-estado="5"><Figure lang={lang} id="e7" title={d.figs.e7_title} subtitle={d.figs.e7_sub} svg={f7.svg} rows={f7.rows} stamp={d.common.stamp_experimental}
+        columns={[{ key: 'pair', label: d.common.year }, ar, ...f7.terms.map((k) => ({ key: k, label: k, num: true, fmt: (v: unknown) => score(lang, v as number) })), { key: 'total', label: 'Δ MIS', num: true, fmt: (v) => score(lang, v as number) }]}>
+        <ul slot="legend" class="leyenda" role="list">{f7.terms.map((k, i) => <li><span class="leyenda__muestra" style={`background:${f7.fills[i]}`}></span>{k}</li>)}</ul>
+      </Figure></div>
+    </div>
+    <ol class="relato__pasos" role="list">
+      {steps.map(([h, p], i) => (
+        <li class="paso" data-paso={i + 1}>
+          <div class="prosa"><h2>{h}</h2><p>{fill(p, vars)}</p></div>
+        </li>
+      ))}
+    </ol>
+  </section>
+  <section class="seccion stack estados" aria-labelledby="estados-t" style="--stack-space: var(--space-s)">
+    <h2 id="estados-t" class="estados__titulo">{d.home.step5_title}</h2>
+    <p class="prosa">{fill(d.home.step5, vars)}</p>
+      <Figure lang={lang} id="e6" title={fill(d.figs.e6_title, { from: 2010, to: L.year })} subtitle={d.figs.e6_sub} svg={f6} rows={e6rows} rowKey="uf"
+        columns={[{ key: 'name', label: d.common.state }, { key: 'a', label: '2010', num: true, fmt: (v) => score(lang, v as number) }, { key: 'b', label: String(L.year), num: true, fmt: (v) => score(lang, v as number) }, { key: 'd', label: 'Δ', num: true, fmt: (v) => score(lang, v as number) }]}>
+        <div slot="legend" class="controles" data-pendiente data-src={asset('data/states.json')} data-title={d.figs.e6_title} data-lang={lang}
+          data-years={JSON.stringify({ general: general.map((y) => y.year), municipal: municipal.map((y) => y.year) })}>
+          <label class="control"><span>{d.common.arena}</span><select data-p-arena><option value="general">{d.common.general_long}</option><option value="municipal">{d.common.municipal_long}</option></select></label>
+          <label class="control"><span>{d.figs.e6_from}</span><select data-p-a>{general.map((y) => <option value={y.year} selected={y.year === 2010}>{y.year}</option>)}</select></label>
+          <label class="control"><span>{d.figs.e6_to}</span><select data-p-b>{general.map((y) => <option value={y.year} selected={y.year === L.year}>{y.year}</option>)}</select></label>
+        </div>
+      </Figure>
+  </section>
+
+
+  <hr class="perforado" />
+  <section class="figura stack" aria-labelledby="e5-t" data-pequenos data-base={asset('').replace(/\/$/, '')}>
+    <h2 id="e5-t" class="figura__titulo">{d.figs.e5_title}</h2>
+    <p class="figura__subtitulo">{d.figs.e5_sub}</p>
+    <p class="figura__marcas"><span>{d.common.general_code}: {d.common.general_long}</span><span>{d.common.municipal_code}: {d.common.municipal_long}</span></p>
+    <Ramp kind="div" lo={`${score(lang, -0.5, 1)} ${d.common.left}`} mid="0" hi={`${d.common.right} ${score(lang, 0.5, 1)}`} label={d.common.mis} />
+    <div data-pequenos-lienzo role="img" aria-label={`${d.figs.e5_title}. ${d.figs.e5_sub}`}></div>
+    <p><a class="boton" href={href(lang, '/map/')}>{d.home.map_link} →</a></p>
+  </section>
+
+  <hr class="perforado" />
+  <section class="prosa stack" aria-labelledby="fin">
+    <h2 id="fin">{d.home.ends_title}</h2>
+    <p>{d.home.ends}</p>
+    <p class="cluster">
+      <a class="boton" href={href(lang, '/map/')}>{d.nav.map} →</a>
+      <a class="boton" href={href(lang, '/municipalities/')}>{d.nav.municipalities} →</a>
+      <a class="boton" href={href(lang, '/methodology/')}>{d.nav.methodology} →</a>
+    </p>
+  </section>
+</Base>
+
+<script>
+  import '../scripts/figuras';
+  import '../scripts/pequenos';
+  import '../scripts/pendiente';
+  import { createMap, getJSON, palette, scaleFor, classify } from '../scripts/mapa';
+
+  // scrollytelling: the step crossing mid-viewport sets the figure state
+  const relato = document.querySelector<HTMLElement>('[data-relato]');
+  const fig = relato?.querySelector<HTMLElement>('.relato__figura');
+  if (relato && fig) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) fig.dataset.paso = (e.target as HTMLElement).dataset.paso;
+    }), { rootMargin: '-50% 0px -50% 0px' });
+    relato.querySelectorAll('.paso').forEach((p) => io.observe(p));
+  }
+
+  // mini map: municipal canvas replaces the state poster once loaded
+  const host = document.querySelector<HTMLElement>('[data-mini-mapa]');
+  if (host) {
+    const load = async () => {
+      const base = host.dataset.base!;
+      const year = Number(host.dataset.year);
+      try {
+        const [arr, m] = await Promise.all([
+          getJSON<{ years: number[]; v: (number | null)[][]; scale: number }>(`${base}/data/map/ideo.json`),
+          createMap(host, {
+            base, mini: true,
+            label: (mu) => `${mu.n} (${mu.uf})`,
+            onHover: (mu, v) => {
+              const note = document.querySelector('[data-mini-nota]');
+              if (note) note.textContent = mu ? `${mu.n} (${mu.uf}) · ${v == null ? '—' : new Intl.NumberFormat(host.dataset.lang === 'pt' ? 'pt-BR' : host.dataset.lang === 'es' ? 'es-ES' : 'en-GB', { minimumFractionDigits: 3, maximumFractionDigits: 3, signDisplay: 'exceptZero' }).format(Number(v) / 1000).replace('-', '−')}` : '';
+            },
+            onSelect: (mu) => {
+              const s = mu.n.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+              location.href = `${host.dataset.profile}${mu.c}-${s}/`;
+            },
+          }),
+        ]);
+        const yi = arr.years.indexOf(year);
+        const pal = palette(host);
+        const sc = scaleFor('ideo', pal, (x) => x.toFixed(2));
+        m.paint(arr.v[yi], (v) => (v == null ? pal.missing : classify(sc, v / arr.scale)));
+        host.querySelector('svg.poster')?.remove();
+      } catch { /* keep the poster */ }
+    };
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '200px' });
+    io.observe(host);
+  }
+</script>

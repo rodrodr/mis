@@ -1,0 +1,101 @@
+{
+  "$description": "Tema negro para OLED: fondo casi negro (nunca #000) y texto casi blanco atenuado para no deslumbrar.",
+  "$extensions": {
+    "es.maestro": {
+      "colorScheme": "dark"
+    }
+  },
+  "color": {
+    "bg": {
+      "base": {
+        "$value": "{color.black.bg}"
+      },
+      "surface": {
+        "$value": "{color.black.surface}"
+      },
+      "raised": {
+        "$value": "{color.neutral.900}"
+      },
+      "inverse": {
+        "$value": "{color.neutral.100}"
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.black.text}"
+      },
+      "secondary": {
+        "$value": "{color.black.text-2}"
+      },
+      "on-accent": {
+        "$value": "{color.neutral.950}"
+      },
+      "inverse": {
+        "$value": "{color.neutral.900}"
+      }
+    },
+    "border": {
+      "subtle": {
+        "$value": "{color.neutral.800}"
+      },
+      "control": {
+        "$value": "{color.neutral.500}"
+      }
+    },
+    "accent": {
+      "solid": {
+        "$value": "{color.brand.400}"
+      },
+      "solid-hover": {
+        "$value": "{color.brand.300}"
+      },
+      "solid-strong": {
+        "$value": "{color.brand.300}"
+      },
+      "text": {
+        "$value": "{color.brand.300}"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$value": "{color.brand.300}"
+      }
+    },
+    "status": {
+      "success": {
+        "$value": "{color.green.400}"
+      },
+      "error": {
+        "$value": "{color.red.400}"
+      },
+      "warning": {
+        "$value": "{color.amber.400}"
+      },
+      "success-strong": {
+        "$value": "{color.green.400}"
+      },
+      "error-strong": {
+        "$value": "{color.red.400}"
+      },
+      "warning-strong": {
+        "$value": "{color.amber.400}"
+      }
+    },
+    "selection": {
+      "bg": {
+        "$value": "{color.brand.800}"
+      }
+    },
+    "shadow-ink": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.05,
+          0.0,
+          0
+        ],
+        "alpha": 0.6
+      }
+    }
+  }
+}

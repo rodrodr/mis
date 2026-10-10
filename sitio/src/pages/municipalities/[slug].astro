@@ -1,0 +1,7 @@
+---
+import Profile from '../../views/Profile.astro';
+import { profilePaths, loadProfile } from '../../lib/profile-paths';
+export function getStaticPaths() { return profilePaths([null]); }
+const { code } = Astro.props as { code: number };
+---
+<Profile lang="en" p={loadProfile(code)} />

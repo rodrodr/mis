@@ -1,0 +1,53 @@
+{
+  "$description": "Movimiento reducido: menos y más suave, no cero. Sin desplazamiento ni escala; los fundidos se quedan. 0.01ms y no 0 donde un transitionend deba dispararse (better-accessibility).",
+  "dur": {
+    "entrance": {
+      "$value": {
+        "value": 150,
+        "unit": "ms"
+      }
+    },
+    "overlay": {
+      "$value": {
+        "value": 150,
+        "unit": "ms"
+      }
+    },
+    "chart": {
+      "$value": {
+        "value": 0.01,
+        "unit": "ms"
+      }
+    },
+    "stagger": {
+      "$value": {
+        "value": 0,
+        "unit": "ms"
+      }
+    },
+    "stagger-max": {
+      "$value": {
+        "value": 0,
+        "unit": "ms"
+      }
+    }
+  },
+  "motion": {
+    "distance": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "press-scale": {
+      "$value": 1
+    }
+  },
+  "spring": {
+    "gesture": {
+      "bounce": {
+        "$value": 0
+      }
+    }
+  }
+}

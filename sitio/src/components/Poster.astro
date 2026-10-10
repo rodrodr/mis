@@ -1,0 +1,10 @@
+---
+// State-level map (build-time SVG). Each state carries its value as a <title>; height is capped
+// so the map, its caption and its key fit the viewport together.
+interface Props { poster: { size: number; shapes: { uf: string; d: string; fill: string; label: string }[] }; label: string }
+const { poster, label } = Astro.props;
+---
+<svg class="poster" viewBox={`0 0 ${poster.size} ${poster.size}`} role="img" aria-label={label}>
+  <defs><pattern id="trama-desc" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--color-bg-raised)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--color-fig-hatch)" stroke-width="1.5"/></pattern></defs>
+  {poster.shapes.map((s) => <path d={s.d} fill={s.fill} stroke="var(--color-fig-ink)" stroke-width="0.8"><title>{s.label}</title></path>)}
+</svg>

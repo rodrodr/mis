@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regresión de verificar.py · isla rota bajo el pliegue</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="Página que solo falla cuando se monta la isla de abajo: la puerta tiene que desplazarse para verlo.">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./demo.css">
+<script type="module">
+  import { registrar } from '../isla.js';
+  registrar('rota', () => import('./pieza-rota.js'));
+</script>
+</head>
+<body>
+<main id="principal" class="center stack">
+  <h1>Isla rota bajo el pliegue</h1>
+  <p>Arriba todo está bien: sin errores, sin desborde y con objetivos de buen tamaño. El fallo solo aparece cuando la isla de abajo entra en pantalla y se monta. Una puerta que no se desplaza lo da por bueno.</p>
+  <section class="relleno stack" aria-labelledby="t-relleno">
+    <h2 id="t-relleno">Relleno</h2>
+    <p>Este bloque empuja la isla por debajo del pliegue en cualquier ancho.</p>
+  </section>
+  <section class="stack" aria-labelledby="t-isla">
+    <h2 id="t-isla">La isla</h2>
+    <maestro-isla pieza="rota" id="rota">
+      <p>Contenido estático de la isla: se lee aunque la pieza falle.</p>
+    </maestro-isla>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+---
+// Brazil's receipt: one printed row per election, grouped by office like a real boletim de urna.
+// Each row: year · strip (−0.5…+0.5) with the typical municipality ● and the electorate ○ · value.
+import { t } from '../i18n';
+import { score, count, fill, type Lang } from '../lib/format';
+import { general, municipal, facts, type YearRow } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const W = 100, LO = -0.5, HI = 0.5;
+const x = (v: number) => ((Math.max(LO, Math.min(HI, v)) - LO) / (HI - LO)) * W;
+const sections: [string, YearRow[]][] = [
+  [d.home.receipt_section_general, general],
+  [d.home.receipt_section_municipal, municipal],
+];
+const label = (r: YearRow) =>
+  `${r.year}: ${d.common.typical} ${score(lang, r.mis_mean)}, ${d.common.electorate} ${score(lang, r.mis_wmean)}${r.provisional ? ` (${d.common.provisional})` : ''}`;
+---
+<section class="recibo" aria-labelledby="recibo-cab">
+  <header class="recibo__cab">
+    <strong id="recibo-cab">{fill(d.home.receipt_header, { last: facts.last.year, n: count(lang, facts.municipalities) })}</strong>
+    <span class="recibo__sub">{d.home.receipt_sub}</span>
+  </header>
+  {sections.map(([title, rows]) => (
+    <>
+      <h2 class="recibo__seccion">{title}</h2>
+      <p class="recibo__escala" aria-hidden="true"><span></span><span><span>{score(lang, LO, 1)}</span><span>0</span><span>{score(lang, HI, 1)}</span></span><span></span></p>
+      <ol class="recibo__filas" role="list">
+        {rows.map((r) => (
+          <li class="recibo__fila">
+            <span class="visualmente-oculto">{label(r)}</span>
+            <span aria-hidden="true">{r.year}</span>
+            <span class="tira" aria-hidden="true">
+              <span class="tira__cero" style={`inset-inline-start:${x(0)}%`}></span>
+              <span class="tira__elect" style={`inset-inline-start:${x(r.mis_wmean)}%`}></span>
+              <span class="tira__tipico" style={`inset-inline-start:${x(r.mis_mean)}%`}></span>
+            </span>
+            <span class="recibo__valor" aria-hidden="true">{score(lang, r.mis_mean)}{r.provisional ? '*' : ''}</span>
+          </li>
+        ))}
+      </ol>
+    </>
+  ))}
+  <div class="recibo__pie" aria-hidden="true">
+    <span>{score(lang, LO, 1)} · {d.common.left}</span><span>0</span><span>{d.common.right} · {score(lang, HI, 1)}</span>
+  </div>
+  <p class="recibo__leyenda">{d.home.receipt_dot_typical} · {d.home.receipt_dot_electorate} · * {d.common.provisional}</p>
+</section>

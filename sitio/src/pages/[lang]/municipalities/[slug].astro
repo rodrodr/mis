@@ -1,0 +1,9 @@
+---
+import Profile from '../../../views/Profile.astro';
+import type { Lang } from '../../../lib/format';
+import { profilePaths, loadProfile } from '../../../lib/profile-paths';
+export function getStaticPaths() { return profilePaths(['pt', 'es']); }
+const { code } = Astro.props as { code: number };
+const { lang } = Astro.params as { lang: Lang };
+---
+<Profile lang={lang} p={loadProfile(code)} />

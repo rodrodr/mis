@@ -1,0 +1,158 @@
+{
+  "$description": "Set base del resolver de lectura (lectura.resolver.json), además de tokens.json: primitivos de TODOS los temas (así una muestra de cada tema se pinta en cualquier tema: selector de tema) y familias elegibles por el lector. Los contextos sepia y black solo redirigen semánticos a estos primitivos, como el alto contraste.",
+  "color": {
+    "sepia": {
+      "$type": "color",
+      "paper": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.94,
+            0.03,
+            85
+          ]
+        }
+      },
+      "paper-2": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.91,
+            0.035,
+            85
+          ]
+        }
+      },
+      "ink": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3,
+            0.03,
+            60
+          ]
+        }
+      },
+      "ink-2": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.45,
+            0.035,
+            60
+          ]
+        }
+      },
+      "line": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.03,
+            80
+          ]
+        }
+      },
+      "success-strong": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.38,
+            0.09,
+            150
+          ]
+        }
+      }
+    },
+    "black": {
+      "$type": "color",
+      "bg": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.13,
+            0.005,
+            250
+          ]
+        }
+      },
+      "surface": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.18,
+            0.008,
+            250
+          ]
+        }
+      },
+      "text": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.008,
+            250
+          ]
+        }
+      },
+      "text-2": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7,
+            0.01,
+            250
+          ]
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "serif": {
+        "$value": [
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "$description": "Provisional: serif de lectura OFL autoalojada del proyecto (Literata, Source Serif 4).",
+        "$extensions": {
+          "es.maestro": {
+            "lectura": true
+          }
+        }
+      },
+      "sans": {
+        "$value": [
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "sans-serif"
+        ],
+        "$description": "Provisional: sans de lectura (Atkinson Hyperlegible Next).",
+        "$extensions": {
+          "es.maestro": {
+            "lectura": true
+          }
+        }
+      },
+      "dyslexic": {
+        "$value": [
+          "OpenDyslexic",
+          "Comic Sans MS",
+          "sans-serif"
+        ],
+        "$description": "Solo como opción del lector; la fuente la carga el proyecto (@fontsource/opendyslexic).",
+        "$extensions": {
+          "es.maestro": {
+            "lectura": true
+          }
+        }
+      }
+    }
+  }
+}

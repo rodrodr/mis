@@ -1,0 +1,23 @@
+---
+// One or two compact state maps side by side, each with its caption and key above it.
+import Poster from './Poster.astro';
+import Ramp from './Ramp.astro';
+interface Panel { title: string; poster: any; ramp: { kind: 'div' | 'ink'; lo: string; hi: string; mid?: string; label?: string }; hatchNote?: string }
+interface Props { title: string; subtitle: string; panels: Panel[]; link?: { href: string; text: string } }
+const { title, subtitle, panels, link } = Astro.props;
+---
+<figure class="figura stack mapas-par" style="--stack-space: var(--space-xs)">
+  <h2 class="figura__titulo">{title}</h2>
+  <p class="figura__subtitulo">{subtitle}</p>
+  <div class="mapas-par__rejilla">
+    {panels.map((p) => (
+      <div class="mapas-par__celda stack" style="--stack-space: var(--space-2xs)">
+        <p class="panel-pequeno__titulo">{p.title}</p>
+        <Ramp {...p.ramp} />
+        {p.hatchNote && <p class="figura__marcas"><span><span class="marca-trama"></span> {p.hatchNote}</span></p>}
+        <Poster poster={p.poster} label={p.title} />
+      </div>
+    ))}
+  </div>
+  {link && <p><a class="boton" href={link.href}>{link.text} →</a></p>}
+</figure>

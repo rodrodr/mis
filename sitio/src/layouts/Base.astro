@@ -1,0 +1,134 @@
+---
+import '@fontsource-variable/martian-mono/wght.css';
+import '@fontsource-variable/atkinson-hyperlegible-next/wght.css';
+import '../styles/site.css';
+import monoUrl from '@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2?url';
+import bodyUrl from '@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url';
+import prefsInline from '../../../kit/tokens/dist/preferencias.inline.js?raw';
+import { t } from '../i18n';
+import { LANGS, type Lang } from '../lib/format';
+import { href, stripLang } from '../lib/paths';
+
+interface Props { lang: Lang; title?: string; description?: string; section?: string; }
+const { lang, title, description, section } = Astro.props;
+const d = t(lang);
+const here = stripLang(Astro.url.pathname);
+const fullTitle = title ? `${title} · ${d.meta.acronym}` : `${d.meta.name} (${d.meta.acronym})`;
+const nav = [
+  ['home', '/'], ['map', '/map/'], ['municipalities', '/municipalities/'],
+  ['polarization', '/polarization/'], ['gender', '/gender/'], ['methodology', '/methodology/'], ['data', '/data/'],
+] as const;
+const apaArticle = 'Power, T. J., & Rodrigues-Silveira, R. (2019). Mapping ideological preferences in Brazilian elections, 1994–2018: A municipal-level study. Brazilian Political Science Review, 13(1), e0001. https://doi.org/10.1590/1981-3821201900010001';
+const apaData = 'Power, T. J., & Rodrigues-Silveira, R. (2026). Municipal Ideological Score (MIS) Version 3.0 (1994–2026): Expanded dataset with candidate gender disaggregation [Data set]. Harvard Dataverse. https://doi.org/10.7910/DVN/8USPML';
+const bibtex = `@article{power2019mis,
+  author  = {Power, Timothy J. and Rodrigues-Silveira, Rodrigo},
+  title   = {Mapping Ideological Preferences in Brazilian Elections, 1994-2018: A Municipal-Level Study},
+  journal = {Brazilian Political Science Review},
+  volume  = {13}, number = {1}, pages = {e0001}, year = {2019},
+  doi     = {10.1590/1981-3821201900010001}
+}
+@misc{power2026misdata,
+  author    = {Power, Timothy J. and Rodrigues-Silveira, Rodrigo},
+  title     = {Municipal Ideological Score (MIS) Version 3.0 (1994-2026)},
+  publisher = {Harvard Dataverse}, year = {2026},
+  doi       = {10.7910/DVN/8USPML}
+}`;
+---
+<!doctype html>
+<html lang={d.meta.lang} class="sin-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description ?? d.meta.description} />
+  <link rel="preload" href={monoUrl} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={bodyUrl} as="font" type="font/woff2" crossorigin />
+  <script is:inline set:html={`document.documentElement.classList.remove('sin-js');${prefsInline}`} />
+  <link rel="icon" href={`data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="#f4f5f4"/><path d="M2 10h12" stroke="#1d1f22"/><circle cx="10" cy="10" r="2.4" fill="#1d1f22"/></svg>')}`} />
+  {LANGS.map((l) => <link rel="alternate" hreflang={l} href={new URL(href(l, here), Astro.site).href} />)}
+  <slot name="head" />
+</head>
+<body>
+  <a class="salto" href="#principal">{d.nav.skip}</a>
+  <header class="cabecera">
+    <div class="cabecera__fila">
+      <a class="marca" href={href(lang, '/')}>
+        <span class="marca__sigla">{d.meta.acronym}</span>
+        <span class="marca__nombre">{d.meta.name}</span>
+      </a>
+      <nav class="nav" aria-label={d.nav.main}>
+        <ul class="nav__lista" role="list">
+          {nav.map(([k, p]) => (
+            <li><a href={href(lang, p)} aria-current={section === k ? 'page' : undefined}>{d.nav[k]}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div class="ajustes">
+        <span class="visualmente-oculto" id="idioma-etiqueta">{d.nav.language}</span>
+        <ul class="cluster" role="list" aria-labelledby="idioma-etiqueta" style="--cluster-space: 0">
+          {LANGS.map((l) => (
+            <li><a href={href(l, here)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined} data-cambio-idioma>{l}</a></li>
+          ))}
+        </ul>
+        <button type="button" class="tema" data-tema aria-label={d.nav.theme}
+          data-l-light={`${d.nav.theme}: ${d.nav.theme_light}`} data-l-dark={`${d.nav.theme}: ${d.nav.theme_dark}`} data-l-system={`${d.nav.theme}: ${d.nav.theme_auto}`}>{d.nav.theme}: {d.nav.theme_auto}</button>
+      </div>
+    </div>
+  </header>
+  <main id="principal" class="principal">
+    <slot />
+  </main>
+  <footer class="pie">
+    <div class="pie__dentro">
+      <section aria-labelledby="pie-autores" class="stack">
+        <h2 id="pie-autores">{d.footer.authors_title}</h2>
+        <p>{d.footer.power}<br />{d.footer.rodrigues}</p>
+        <p class="recibo__leyenda">{d.footer.version}</p>
+        <p class="recibo__leyenda">{d.footer.built}</p>
+      </section>
+      <section aria-labelledby="pie-cita" class="stack cita">
+        <h2 id="pie-cita">{d.footer.cite_title}</h2>
+        <p>{d.footer.cite_intro}</p>
+        <p data-copiable>{apaArticle}</p>
+        <p data-copiable>{apaData}</p>
+        <details>
+          <summary>{d.footer.bibtex}</summary>
+          <pre data-copiable>{bibtex}</pre>
+        </details>
+        <p><button type="button" class="boton" data-copiar data-l-copied={d.footer.copied}>{d.footer.copy} · {d.footer.apa}</button></p>
+      </section>
+    </div>
+  </footer>
+  <script>
+    import { prefs } from '../../../kit/preferencias.js';
+    const b = document.querySelector<HTMLButtonElement>('[data-tema]');
+    const order = ['system', 'light', 'dark'];
+    const paint = () => {
+      const cur = prefs.get().theme ?? 'system';
+      if (b) b.textContent = b.dataset[`l${cur[0].toUpperCase()}${cur.slice(1)}`] ?? cur;
+    };
+    b?.addEventListener('click', () => {
+      const cur = prefs.get().theme ?? 'system';
+      prefs.set({ theme: order[(order.indexOf(cur) + 1) % order.length] });
+      paint();
+    });
+    paint();
+    // header height for figure-first layouts (the map explorer fills the rest of the viewport)
+    const cab = document.querySelector<HTMLElement>('.cabecera');
+    if (cab) {
+      const setH = () => document.documentElement.style.setProperty('--alto-cabecera', `${cab.offsetHeight}px`);
+      setH(); new ResizeObserver(setH).observe(cab);
+    }
+    document.querySelector('.nav [aria-current="page"]')?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+    // keep query + hash when switching language (map state lives in the URL)
+    document.querySelectorAll<HTMLAnchorElement>('[data-cambio-idioma]').forEach((a) => {
+      a.addEventListener('click', () => { a.href = a.href.split(/[?#]/)[0] + location.search + location.hash; });
+    });
+    const copy = document.querySelector<HTMLButtonElement>('[data-copiar]');
+    copy?.addEventListener('click', async () => {
+      const text = [...document.querySelectorAll('.cita p[data-copiable]')].map((p) => p.textContent).join('\n\n');
+      try { await navigator.clipboard.writeText(text); copy.textContent = copy.dataset.lCopied ?? 'OK'; } catch { /* clipboard blocked */ }
+    });
+  </script>
+</body>
+</html>

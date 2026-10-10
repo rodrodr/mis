@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n';
+import { count, fill, type Lang } from '../lib/format';
+import { asset } from '../lib/paths';
+import { verification } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const d = t(lang);
+const v = { rows: count(lang, verification.rows), micro: count(lang, verification.micro_rows) };
+const files = [
+  ['data/municipalities.json', 'municipalities.json'], ['data/states.json', 'states.json'],
+  ['data/immediate_regions.json', 'immediate_regions.json'], ['data/parties_min.json', 'parties_min.json'],
+  ['data/geo/municipios.topo.json', 'municipios.topo.json (IBGE 2024)'],
+];
+---
+<Base lang={lang} title={d.datapage.title} section="data">
+  <div class="stack prosa" style="--stack-space: var(--space-m)">
+    <h1 class="titulo-pagina">{d.datapage.title}</h1>
+    <p class="lede">{d.datapage.lede}</p>
+    <p><a class="boton" href="https://doi.org/10.7910/DVN/8USPML">{d.datapage.dataverse} → doi:10.7910/DVN/8USPML</a></p>
+    <section class="recibo stack" aria-labelledby="dv">
+      <h2 id="dv" class="recibo__seccion" style="margin: 0">{d.datapage.files}</h2>
+      <ul class="stack" style="--stack-space: var(--space-2xs)">{d.datapage.files_list.map((x) => <li>{fill(x.replace(/\{(rows|micro)\}/g, '{$1}'), v)}</li>)}</ul>
+    </section>
+    <section class="stack" aria-labelledby="sf">
+      <h2 id="sf">{d.datapage.site_files}</h2>
+      <p>{d.datapage.site_files_text}</p>
+      <ul>{files.map(([p, l]) => <li><a href={asset(p)} download><code>{l}</code></a></li>)}</ul>
+    </section>
+    <p class="figura__aviso"><span class="sello">v2.0</span><span>{d.datapage.replication}</span></p>
+    <p class="recibo__leyenda">{d.datapage.licence}</p>
+  </div>
+</Base>

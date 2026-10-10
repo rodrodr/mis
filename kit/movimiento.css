@@ -1,0 +1,107 @@
+/* movimiento.css · utilidades de movimiento nativas, con degradación (kit maestro-diseno-web)
+   Requisito: base.css (declara el orden de capas) y tokens.css (--dur-*, --ease-*, --motion-*).
+
+   Reglas que aplica este fichero (reference/contratos.md §5 y §6):
+   - El estado final es el estado por defecto: visible sin JS, sin soporte y con movimiento reducido.
+   - Desplazamiento, escala, scroll y transiciones entre páginas: solo con
+     prefers-reduced-motion: no-preference y sin [data-motion="reduce"]. Los fundidos cortos se quedan:
+     en movimiento reducido los tokens ponen --motion-distance a 0 y acortan --dur-*, y la misma regla
+     se convierte sola en un fundido («menos y más suave, no cero»).
+   - Lo que no es Baseline va además dentro de @supports.
+   - Duraciones y curvas solo por token. Nunca transition: all. Scroll ligado = mapeo lineal.
+   - Una sola entrada de autor por página: .revela y .escalonado no se reparten por todas las secciones. */
+
+/* 1. Transiciones entre documentos (MPA). @view-transition no es regla de estilo: va fuera de capas. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
+@layer utilities {
+  ::view-transition-group(*) {
+    animation-duration: var(--dur-overlay);
+    animation-timing-function: var(--ease-out);
+  }
+  /* Movimiento reducido (sistema o [data-motion="reduce"]): sin desplazamiento ni cambio de tamaño;
+     queda el fundido de old/new, que hereda --dur-overlay (150 ms en reducido). Cubre también las
+     transiciones de la misma página (document.startViewTransition), que @view-transition no filtra. */
+  @media (prefers-reduced-motion: reduce) {
+    :root:where(:not([data-motion="normal"]))::view-transition-group(*) { animation-name: none; }
+  }
+  :root:where([data-motion="reduce"])::view-transition-group(*) { animation-name: none; }
+
+  /* 2. Aparición con @starting-style: popover, dialog y cualquier .entra que se inserte o se muestre.
+        Con movimiento reducido queda un fundido de --dur-overlay (150 ms) sin desplazamiento. */
+  :where([popover], dialog, .entra) {
+    transition-property: opacity, translate, display, overlay;
+    transition-duration: var(--dur-overlay);
+    transition-timing-function: var(--ease-out);
+    transition-behavior: allow-discrete;
+  }
+  :where([popover]:not(:popover-open), dialog:not([open])) { opacity: 0; translate: 0 var(--motion-distance); }
+  @starting-style {
+    :where([popover]:popover-open, dialog[open], .entra) { opacity: 0; translate: 0 var(--motion-distance); }
+  }
+
+  /* 3. Revelado ligado al scroll (el momento de autor, no un patrón por sección).
+        Firefox sin animation-timeline, sin JS o con movimiento reducido: contenido quieto y visible.
+        Solo desplazamiento, sin opacidad: un texto semitransparente dentro del viewport incumple el
+        contraste mientras dura (axe lo detectó en la página de prueba a 768×1024). Para fundir una
+        imagen o una figura decorativa, usa .revela-figura. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      :where(:root:not([data-motion="reduce"])) .revela {
+        animation: revela linear both;           /* scroll ligado: mapeo lineal, no una transición */
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+      :where(:root:not([data-motion="reduce"])) .revela-figura {
+        animation: revela-figura linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+  }
+  @keyframes revela { from { translate: 0 calc(var(--motion-distance) * 2); } }
+  @keyframes revela-figura { from { opacity: 0; translate: 0 calc(var(--motion-distance) * 2); } }
+
+  /* 4. Escalonado de una lista que se lee como lista. --i lo pone el HTML; sibling-index() donde exista.
+        Tope total --dur-stagger-max; en movimiento reducido los tokens lo ponen a 0. */
+  .escalonado > * { transition-delay: min(calc(var(--i, 0) * var(--dur-stagger)), var(--dur-stagger-max)); }
+  @supports (transition-delay: calc(sibling-index() * 1ms)) {
+    .escalonado > * { transition-delay: min(calc((sibling-index() - 1) * var(--dur-stagger)), var(--dur-stagger-max)); }
+  }
+
+  /* 5. Pulsación: acuse inmediato en :active (emil: scale 0,97, 100–160 ms). En reducido la escala es 1.
+        El hover de los componentes va siempre tras @media (hover: hover) and (pointer: fine). */
+  .pulsable {
+    transition-property: scale;
+    transition-duration: var(--dur-press);
+    transition-timing-function: var(--ease-out);
+  }
+  .pulsable:where(:active) { scale: var(--motion-press-scale); }
+
+  /* 6. Cambios de estado de UI sencillos (color, fondo, borde, opacidad), nunca «all». */
+  .transicion-estado {
+    transition-property: color, background-color, border-color, opacity;
+    transition-duration: var(--dur-ui);
+    transition-timing-function: var(--ease-out);
+  }
+
+  /* 7. Parte visual del bus de feedback (kits/feedback.js pone data-feedback durante un ciclo).
+        El color cambia siempre, también con movimiento reducido; el temblor usa --motion-distance,
+        que en reducido vale 0. */
+  :where([data-feedback]) {
+    outline: var(--border-width-focus) solid var(--feedback-color, var(--color-focus-ring));
+    outline-offset: var(--border-width-focus);
+  }
+  :where([data-feedback="success"]) { --feedback-color: var(--color-status-success); }
+  :where([data-feedback="warning"]) { --feedback-color: var(--color-status-warning); }
+  :where([data-feedback="error"]) {
+    --feedback-color: var(--color-status-error);
+    animation: feedback-temblor var(--dur-overlay) var(--ease-out);
+  }
+  @keyframes feedback-temblor {
+    25% { translate: calc(var(--motion-distance) * -0.35) 0; }
+    75% { translate: calc(var(--motion-distance) * 0.35) 0; }
+  }
+}

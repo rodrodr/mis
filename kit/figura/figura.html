@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plantilla de figura de datos · maestro-diseno-web</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="Anatomía de figura: título que responde, gráfico estático del build, tabla equivalente, datos y fuente; pestañas y teclado como mejora.">
+<!-- en producción, preferencias.inline.js va en línea aquí, antes de las hojas de estilo -->
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./figura.css">
+<script type="module">
+  import { registrar } from '../isla.js';
+  registrar('figura', () => import('./pieza-figura.js'));
+</script>
+</head>
+<body>
+<main id="principal" class="center stack">
+  <h1>Plantilla de figura de datos</h1>
+  <p>Una figura nace de una pregunta, un agregado real y una frase de respuesta. Esta plantilla usa <strong>datos de ejemplo</strong> (sintéticos, rotulados): en un proyecto, cada cifra sale de una consulta con fuente y fecha.</p>
+
+  <maestro-isla pieza="figura">
+    <article data-figura id="fig-ejemplo" class="figura" aria-labelledby="fig-ejemplo-titulo">
+      <h2 id="fig-ejemplo-titulo" class="figura__titulo">La actividad se concentra en primavera y otoño</h2>
+      <p class="figura__subtitulo">¿Cuántas sesiones hubo cada mes? Número de sesiones, datos de ejemplo.</p>
+      <nav class="figura__indice" aria-label="Vistas de la figura">
+        <a href="#fig-ejemplo-grafico">Gráfico</a>
+        <a href="#fig-ejemplo-tabla">Tabla</a>
+        <a href="#fig-ejemplo-datos">Datos</a>
+      </nav>
+      <section id="fig-ejemplo-grafico" class="figura__vista" aria-labelledby="fig-ejemplo-t-grafico">
+        <h3 id="fig-ejemplo-t-grafico">Gráfico</h3>
+        <p class="visualmente-oculto">Gráfico de barras navegable: con el foco en una barra, las flechas pasan de un mes a otro. La tabla tiene los mismos datos.</p>
+        <div data-navegable>
+          <svg aria-label="Sesiones por mes (datos de ejemplo): la actividad se concentra en primavera y otoño" role="group" viewBox="0 0 640 260" height="260" width="640" text-anchor="middle" font-size="10" fill="currentColor" class="plot-d6a7b5"><style>:where(.plot-d6a7b5) {
+  --plot-background: white;
+  display: block;
+  height: auto;
+  height: intrinsic;
+  max-width: 100%;
+}
+:where(.plot-d6a7b5 text),
+:where(.plot-d6a7b5 tspan) {
+  white-space: pre;
+}</style><g stroke-opacity="0.1" stroke="currentColor" aria-hidden="true"><line y2="230" y1="230" x2="620" x1="44" /><line y2="200.00000000000003" y1="200.00000000000003" x2="620" x1="44" /><line y2="170" y1="170" x2="620" x1="44" /><line y2="140" y1="140" x2="620" x1="44" /><line y2="110.00000000000001" y1="110.00000000000001" x2="620" x1="44" /><line y2="80" y1="80" x2="620" x1="44" /><line y2="50.000000000000014" y1="50.000000000000014" x2="620" x1="44" /><line y2="20" y1="20" x2="620" x1="44" /></g><g stroke="currentColor" fill="none" aria-hidden="true"><path d="M0,0L-6,0" transform="translate(44,230)" /><path d="M0,0L-6,0" transform="translate(44,200.00000000000003)" /><path d="M0,0L-6,0" transform="translate(44,170)" /><path d="M0,0L-6,0" transform="translate(44,140)" /><path d="M0,0L-6,0" transform="translate(44,110.00000000000001)" /><path d="M0,0L-6,0" transform="translate(44,80)" /><path d="M0,0L-6,0" transform="translate(44,50.000000000000014)" /><path d="M0,0L-6,0" transform="translate(44,20)" /></g><g aria-hidden="true" transform="translate(-9,0)" font-variant="tabular-nums" text-anchor="end"><text transform="translate(44,230)" y="0.32em">0</text><text transform="translate(44,200.00000000000003)" y="0.32em">5</text><text transform="translate(44,170)" y="0.32em">10</text><text transform="translate(44,140)" y="0.32em">15</text><text transform="translate(44,110.00000000000001)" y="0.32em">20</text><text transform="translate(44,80)" y="0.32em">25</text><text transform="translate(44,50.000000000000014)" y="0.32em">30</text><text transform="translate(44,20)" y="0.32em">35</text></g><g aria-hidden="true" transform="translate(-41,-17)" text-anchor="start"><text transform="translate(44,20)" y="0.71em">↑ Sesiones</text></g><g transform="translate(21,0)" stroke="currentColor" fill="none" aria-hidden="true"><path d="M0,0L0,6" transform="translate(52,230)" /><path d="M0,0L0,6" transform="translate(99,230)" /><path d="M0,0L0,6" transform="translate(146,230)" /><path d="M0,0L0,6" transform="translate(193,230)" /><path d="M0,0L0,6" transform="translate(240,230)" /><path d="M0,0L0,6" transform="translate(287,230)" /><path d="M0,0L0,6" transform="translate(334,230)" /><path d="M0,0L0,6" transform="translate(381,230)" /><path d="M0,0L0,6" transform="translate(428,230)" /><path d="M0,0L0,6" transform="translate(475,230)" /><path d="M0,0L0,6" transform="translate(522,230)" /><path d="M0,0L0,6" transform="translate(569,230)" /></g><g aria-hidden="true" transform="translate(21,9)"><text transform="translate(52,230)" y="0.71em">ene</text><text transform="translate(99,230)" y="0.71em">feb</text><text transform="translate(146,230)" y="0.71em">mar</text><text transform="translate(193,230)" y="0.71em">abr</text><text transform="translate(240,230)" y="0.71em">may</text><text transform="translate(287,230)" y="0.71em">jun</text><text transform="translate(334,230)" y="0.71em">jul</text><text transform="translate(381,230)" y="0.71em">ago</text><text transform="translate(428,230)" y="0.71em">sep</text><text transform="translate(475,230)" y="0.71em">oct</text><text transform="translate(522,230)" y="0.71em">nov</text><text transform="translate(569,230)" y="0.71em">dic</text></g><g fill="var(--color-accent-solid)"><rect aria-label="ene: 12 sesiones" role="img" data-punto="" height="72" y="158" width="42" x="52" /><rect aria-label="feb: 18 sesiones" role="img" data-punto="" height="108" y="122" width="42" x="99" /><rect aria-label="mar: 27 sesiones" role="img" data-punto="" height="162" y="67.99999999999999" width="42" x="146" /><rect aria-label="abr: 31 sesiones" role="img" data-punto="" height="186" y="44.000000000000014" width="42" x="193" /><rect aria-label="may: 29 sesiones" role="img" data-punto="" height="174" y="55.999999999999986" width="42" x="240" /><rect aria-label="jun: 22 sesiones" role="img" data-punto="" height="132" y="98" width="42" x="287" /><rect aria-label="jul: 9 sesiones" role="img" data-punto="" height="54" y="176" width="42" x="334" /><rect aria-label="ago: 0 sesiones" role="img" data-punto="" height="0" y="230" width="42" x="381" /><rect aria-label="sep: 14 sesiones" role="img" data-punto="" height="84" y="146" width="42" x="428" /><rect aria-label="oct: 25 sesiones" role="img" data-punto="" height="150" y="80" width="42" x="475" /><rect aria-label="nov: 28 sesiones" role="img" data-punto="" height="168" y="61.99999999999999" width="42" x="522" /><rect aria-label="dic: 16 sesiones" role="img" data-punto="" height="95.99999999999997" y="134.00000000000003" width="42" x="569" /></g><g aria-hidden="true" stroke="var(--color-border-control)"><line y2="230" y1="230" x2="620" x1="44" /></g></svg>
+        </div>
+      </section>
+      <section id="fig-ejemplo-tabla" class="figura__vista" aria-labelledby="fig-ejemplo-t-tabla">
+        <h3 id="fig-ejemplo-t-tabla">Tabla</h3>
+        <table>
+          <caption class="visualmente-oculto">Sesiones por mes (datos de ejemplo)</caption>
+          <thead><tr><th scope="col">Mes</th><th scope="col" data-cifra>Sesiones</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">ene</th><td data-cifra>12</td></tr>
+            <tr><th scope="row">feb</th><td data-cifra>18</td></tr>
+            <tr><th scope="row">mar</th><td data-cifra>27</td></tr>
+            <tr><th scope="row">abr</th><td data-cifra>31</td></tr>
+            <tr><th scope="row">may</th><td data-cifra>29</td></tr>
+            <tr><th scope="row">jun</th><td data-cifra>22</td></tr>
+            <tr><th scope="row">jul</th><td data-cifra>9</td></tr>
+            <tr><th scope="row">ago</th><td data-cifra>0</td></tr>
+            <tr><th scope="row">sep</th><td data-cifra>14</td></tr>
+            <tr><th scope="row">oct</th><td data-cifra>25</td></tr>
+            <tr><th scope="row">nov</th><td data-cifra>28</td></tr>
+            <tr><th scope="row">dic</th><td data-cifra>16</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section id="fig-ejemplo-datos" class="figura__vista stack" aria-labelledby="fig-ejemplo-t-datos">
+        <h3 id="fig-ejemplo-t-datos">Datos</h3>
+        <p><a href="./ejemplo.csv" download>Descargar los datos (CSV, 12 filas)</a> · <a href="./ejemplo.svg" download>Descargar el gráfico (SVG)</a></p>
+        <details>
+          <summary>Más sobre estos datos</summary>
+          <p>Datos sintéticos para la plantilla. En un proyecto: la consulta o el script que produce el agregado, su fecha de extracción y las decisiones de limpieza.</p>
+        </details>
+        <div class="stack">
+          <p>Los mismos doce meses ordenados de otra manera: la transición conserva cada mes a la vista mientras cambia de sitio.</p>
+          <p><button type="button" class="boton" data-flip aria-pressed="false">Ordenar de más a menos sesiones</button></p>
+          <ol class="figura__celdas" role="list">
+          <li data-orden="0" data-valor="12">ene · 12</li>
+          <li data-orden="1" data-valor="18">feb · 18</li>
+          <li data-orden="2" data-valor="27">mar · 27</li>
+          <li data-orden="3" data-valor="31">abr · 31</li>
+          <li data-orden="4" data-valor="29">may · 29</li>
+          <li data-orden="5" data-valor="22">jun · 22</li>
+          <li data-orden="6" data-valor="9">jul · 9</li>
+          <li data-orden="7" data-valor="0">ago · 0</li>
+          <li data-orden="8" data-valor="14">sep · 14</li>
+          <li data-orden="9" data-valor="25">oct · 25</li>
+          <li data-orden="10" data-valor="28">nov · 28</li>
+          <li data-orden="11" data-valor="16">dic · 16</li>
+          </ol>
+        </div>
+      </section>
+      <p class="figura__fuente">Fuente: datos de ejemplo de la plantilla (sintéticos). Fecha: 23-09-2026.</p>
+    </article>
+  </maestro-isla>
+</main>
+</body>
+</html>

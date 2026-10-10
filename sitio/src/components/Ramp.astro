@@ -1,0 +1,14 @@
+---
+// Colour key for a map, placed with the map it explains (never below the fold).
+// kind "div": left ink → centre → right ink (ideology); kind "ink": centre → thermal black.
+interface Props { kind: 'div' | 'ink'; lo: string; mid?: string; hi: string; label?: string }
+const { kind, lo, mid, hi, label } = Astro.props;
+const bg = kind === 'div'
+  ? 'linear-gradient(90deg, var(--color-ideo-left-strong), var(--color-ideo-center), var(--color-ideo-right-strong))'
+  : 'linear-gradient(90deg, var(--color-ideo-center), var(--color-fig-ink))';
+---
+<div class="rampa-bloque">
+  {label && <p class="rampa__titulo">{label}</p>}
+  <div class="rampa" style={`background: ${bg}`} aria-hidden="true"></div>
+  <p class="rampa__etiquetas" aria-hidden="true"><span>{lo}</span>{mid && <span>{mid}</span>}<span>{hi}</span></p>
+</div>
