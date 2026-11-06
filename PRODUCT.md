@@ -49,7 +49,7 @@ It is the only municipal-level, 32-year, survey-anchored (Brazilian Legislative 
 - **Dalton:** = `pol_dalton_norm`, shown ×10 (0–10). `pol_pi` appears only in Methodology, as the legacy MIS specification.
 - **Gender maps:** municipalities with < 300 female nominal votes are hatched as "few votes". A toggle aggregates to Immediate Geographic Region or state, summing votes from the microdata.
 - **Included in v1:** shift-share counterfactual (vote shift vs. party re-placement; definition pending author sign-off), LISA clusters and the municipality comparator.
-- **2026 is provisional:** first-round *boletins de urna* of 5 Oct 2026; `supp_pres` repeats 2024. Marked as provisional wherever 2026 appears.
+- **2026 uses the final TSE results** by electoral section (`votacao_secao_2026`, files of 26 Oct 2026), which replaced the first-round *boletins de urna* of 5 Oct 2026 in November 2026; `supp_pres` repeats 2024. The provisional stamp is driven by `PROVISIONAL_YEARS` in `pipeline/build_data.py` (now empty).
 - **Missing values:** not-yet-installed municipalities, missing data and not-applicable cases (DF and Fernando de Noronha have no municipal elections) are distinct states.
 
 ## Brand Commitments

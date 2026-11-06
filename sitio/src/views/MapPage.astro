@@ -42,7 +42,7 @@ const Y = facts.last.year;
         <p class="mapa__medida" data-r-medida>{d.map.var_ideo}</p>
         <p class="mapa__ano" data-r-ano>{Y}</p>
         <p class="mapa__arena" data-r-arena>{d.common.general_long}</p>
-        <p data-provisional><span class="sello">{d.common.stamp_provisional}</span></p>
+        {facts.last.provisional && <p data-provisional><span class="sello">{d.common.stamp_provisional}</span></p>}
       </div>
       <div class="mapa__leyenda">
         <ul class="leyenda leyenda--mapa" data-leyenda role="list"></ul>

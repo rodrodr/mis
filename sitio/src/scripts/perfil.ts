@@ -29,7 +29,7 @@ async function draw(root: HTMLElement) {
   const ys: number[] = P.y, S = P.s;
   const gen = (y: number) => (y - 1994) % 4 === 0;
   const last = Math.max(...ys);
-  const tag = (y: number) => `${y}${y === 2026 ? ` (${L.provisional})` : ''}`;
+  const tag = (y: number) => `${y}${y === last && L.provisional ? ` (${L.provisional})` : ''}`;
   const state = new Map<number, number>(JSON.parse(root.dataset.state!));
   const brazil = new Map<number, number>(JSON.parse(root.dataset.brazil!));
   const allY = [...new Set([...ys, ...brazil.keys()])].sort();

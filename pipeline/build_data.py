@@ -30,6 +30,8 @@ PUB_DATA = ROOT / "sitio" / "public" / "data"
 CACHE = ROOT / "pipeline" / ".cache"
 K = ["year", "GEOCODIG_M"]
 
+# Years whose data are provisional (none since the final TSE 2026 results, November 2026)
+PROVISIONAL_YEARS: set = set()
 GENERAL = [1994, 1998, 2002, 2006, 2010, 2014, 2018, 2022, 2026]
 MUNICIPAL = [1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024]
 YEARS = sorted(GENERAL + MUNICIPAL)
@@ -135,7 +137,7 @@ def national(d):
         qs = q.ideo_imp.quantile([0.1, 0.25, 0.5, 0.75, 0.9]).values
         rows.append({
             "year": int(y), "arena": arena(y), "president": PRESIDENT[y], "n": int(len(q)),
-            "provisional": bool(y == 2026),
+            "provisional": bool(y in PROVISIONAL_YEARS),
             "mis_mean": r(q.ideo_imp.mean()), "mis_wmean": r(wavg(q.ideo_imp, q.tot_votos)),
             "mis_sd": r(q.ideo_imp.std()), "mis_q": [r(v) for v in qs],
             "mis_na_mean": r(q.ideo_na.mean()),

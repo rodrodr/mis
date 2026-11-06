@@ -61,7 +61,7 @@ async function init(root: HTMLElement) {
       name: x.n, dash: DASH[i], width: 2.2,
       pts: (x.data.y as number[]).map((y, k) => ({
         x: y, y: x.data.s.ideo[k], hollow: (y - 1994) % 4 !== 0,
-        label: `${x.n} (${x.uf}) · ${y}${y === 2026 ? ` (${L.provisional})` : ''} · ${(y - 1994) % 4 === 0 ? L.general : L.municipal}: ${f(x.data.s.ideo[k])}`,
+        label: `${x.n} (${x.uf}) · ${y}${y === 2026 && L.provisional ? ` (${L.provisional})` : ''} · ${(y - 1994) % 4 === 0 ? L.general : L.municipal}: ${f(x.data.s.ideo[k])}`,
       })),
     }));
     const vals = series.flatMap((s) => s.pts.map((p) => p.y)).filter((v): v is number => v != null);

@@ -45,5 +45,5 @@ const label = (r: YearRow) =>
   <div class="recibo__pie" aria-hidden="true">
     <span>{score(lang, LO, 1)} · {d.common.left}</span><span>0</span><span>{d.common.right} · {score(lang, HI, 1)}</span>
   </div>
-  <p class="recibo__leyenda">{d.home.receipt_dot_typical} · {d.home.receipt_dot_electorate} · * {d.common.provisional}</p>
+  <p class="recibo__leyenda">{d.home.receipt_dot_typical} · {d.home.receipt_dot_electorate}{[...general, ...municipal].some((r) => r.provisional) && ` · * ${d.common.provisional}`}</p>
 </section>

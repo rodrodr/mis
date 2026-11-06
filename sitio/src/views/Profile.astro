@@ -35,7 +35,7 @@ const labels = {
   typical: d.common.typical, mis: d.common.mis, vote_share: d.method.share, group_title: d.grupos.title, gabbr: d.grupos.abbr.join('|'), gnames: d.grupos.names.join('|'), left: d.common.left, right: d.common.right, others: d.muni.others, mayor: d.common.mayor, governor: d.common.governor,
   dalton: d.common.dalton, enep: d.common.enep, maxp: d.muni.maxp, female: d.common.female_share,
   misF: d.common.mis_female, misM: d.common.mis_male, vote: d.figs.vote, place: d.figs.place, entry: d.figs.entry,
-  provisional: d.common.provisional, loading: d.common.loading, error: d.common.error,
+  provisional: facts.last.provisional ? d.common.provisional : '', loading: d.common.loading, error: d.common.error,
 };
 const cols: [string, string, (v: number | null) => string][] = [
   ['ideo', d.common.mis, (v) => score(lang, v)],
@@ -72,7 +72,7 @@ const figs = [
       <div class="stack" style="--stack-space: var(--space-2xs)">
         <p class="numeral__etiqueta">{d.common.mis} · {lastYear}</p>
         <p class="numeral">{score(lang, mis)}</p>
-        {lastYear === facts.last.year && <p><span class="sello">{d.common.stamp_provisional}</span></p>}
+        {lastYear === facts.last.year && facts.last.provisional && <p><span class="sello">{d.common.stamp_provisional}</span></p>}
       </div>
     </header>
     <p class="lede prosa">{fill(d.muni.summary, { lastYear, name, mis: score(lang, mis), side, rankText, meanGen: score(lang, meanGen), meanMun: score(lang, meanMun) })}</p>

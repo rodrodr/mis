@@ -19,7 +19,7 @@ const lists = [
   [fill(d.muni.rank_change, { from: prev, to: Y }), R.change, (x: number) => score(lang, x)],
   [fill(d.muni.rank_polar, { year: Y }), R.polar, (x: number) => num(lang, x, 1)],
 ] as const;
-const labels = { general: d.common.general, municipal: d.common.municipal, mis: d.common.mis, remove: d.muni.compare_remove, provisional: d.common.provisional };
+const labels = { general: d.common.general, municipal: d.common.municipal, mis: d.common.mis, remove: d.muni.compare_remove, provisional: facts.last.provisional ? d.common.provisional : '' };
 ---
 <Base lang={lang} title={d.muni.title} section="municipalities">
   <div class="stack" style="--stack-space: var(--space-m)">
@@ -39,7 +39,7 @@ const labels = { general: d.common.general, municipal: d.common.municipal, mis: 
             </li>
           ))}
         </ol>
-        {Y === facts.last.year && <p class="recibo__leyenda">* {d.common.provisional}</p>}
+        {Y === facts.last.year && facts.last.provisional && <p class="recibo__leyenda">* {d.common.provisional}</p>}
       </section>
     ))}
   </div>

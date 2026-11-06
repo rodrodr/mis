@@ -55,7 +55,7 @@ const steps = [
       <div class="stack" style="--stack-space: var(--space-2xs)">
         <p class="numeral__etiqueta">{fill(d.home.big_label, { year: L.year })}</p>
         <p class="numeral" data-cifras>{sc(L.mis_mean)}</p>
-        <p class="cluster"><span class="sello" title={d.common.provisional}>{d.common.stamp_provisional}</span>
+        <p class="cluster">{L.provisional && <span class="sello" title={d.common.provisional}>{d.common.stamp_provisional}</span>}
           <span>{fill(d.home.big_sub, { wmean: sc(L.mis_wmean) })}</span></p>
       </div>
       <Search lang={lang} id="buscar-portada" />
